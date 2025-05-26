@@ -894,7 +894,7 @@ export default function TrueManPowerPremium() {
                       <Users className="h-8 w-8 text-white" />
                     </div>
                     <div>
-                      <h3 className="text-xl font-bold text-gray-900">Apostol Andrei Eusebiu</h3>
+                      <h3 className="text-xl font-bold text-gray-900">Apostol Andrei-Eusebiu</h3>
                       <p className="text-blue-600 font-semibold">Founder & Lead Recruiter</p>
                     </div>
                   </div>
@@ -1035,7 +1035,7 @@ export default function TrueManPowerPremium() {
           <div className="border-t border-gray-700 pt-8">
             <div className="flex flex-col md:flex-row justify-between items-center">
               <p className="text-gray-400 text-center md:text-left">
-                © 2025 True ManPower® S.R.L. All rights reserved. | Apostol Andrei Eusebiu, Founder & Lead Recruiter
+                © 2025 True ManPower® S.R.L. All rights reserved. | Apostol Andrei-Eusebiu, Founder & Lead Recruiter
               </p>
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
