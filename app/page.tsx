@@ -112,8 +112,8 @@ export default function TrueManPowerPremium() {
       pricing: "Pricing",
       process: "Process",
       contact: "Contact",
-      heroTitle: "Recruiting Skilled Non-EU Workers Overseas ",
-      heroSubtitle: "From Pakistan, Bangladesh, Nepal, Sri Lanka, Ethiopia, Turkey, and many others",
+      heroTitle: "Overseas Recruitment of Non-EU Workers ",
+      heroSubtitle: "From Pakistan, Bangladesh, Nepal, Sri Lanka, Ethiopia, Nigeria, Turkey, and many others",
       heroDescription:
         "We help skilled professionals and unqualified workers from Non-EU countries find excellent career opportunities with Romanian companies. Simple process, transparent pricing, complete legal support.",
       getStarted: "Get Started Today",
