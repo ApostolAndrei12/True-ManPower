@@ -113,7 +113,7 @@ export default function TrueManPowerPremium() {
       process: "Process",
       contact: "Contact",
       heroTitle: "Recruiting Skilled Workers Overseas",
-      heroSubtitle: "From Pakistan, Bangladesh, Nepal, Sri Lanka, Ethiopia, Turkey, etc.",
+      heroSubtitle: "From Pakistan, Bangladesh, Nepal, Sri Lanka, Ethiopia, Turkey, and many others",
       heroDescription:
         "We help skilled professionals from Asia and Africa find excellent career opportunities with Romanian companies. Simple process, transparent pricing, complete legal support.",
       getStarted: "Get Started Today",
@@ -130,7 +130,7 @@ export default function TrueManPowerPremium() {
       process: "Proces",
       contact: "Contact",
       heroTitle: "Recrutăm Lucrători Calificați din Străinătate",
-      heroSubtitle: "Din Pakistan, Bangladesh, Nepal, Sri Lanka, Etiopia, Turcia, etc.",
+      heroSubtitle: "Din Pakistan, Bangladesh, Nepal, Sri Lanka, Etiopia, Turcia, și multe altele",
       heroDescription:
         "Ajutăm profesioniști calificați din Asia și Africa să găsească oportunități excelente de carieră cu companii românești. Proces simplu, prețuri transparente, suport legal complet.",
       getStarted: "Începe Astăzi",
@@ -199,13 +199,7 @@ export default function TrueManPowerPremium() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex items-center space-x-4">
-              <Image
-                src="/placeholder-logo.svg"
-                alt="True ManPower"
-                width={60}
-                height={60}
-                className="rounded-lg shadow-md"
-              />
+              <Image src="/logo.png" alt="True ManPower" width={60} height={60} className="rounded-lg shadow-md" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">True ManPower® S.R.L.</h1>
                 <p className="text-sm text-blue-600 font-semibold tracking-wide">INTERNATIONAL RECRUITMENT</p>
@@ -953,7 +947,7 @@ export default function TrueManPowerPremium() {
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-4 mb-6">
-                <Image src="/placeholder-logo.svg" alt="True ManPower" width={60} height={60} className="rounded-lg" />
+                <Image src="/logo.png" alt="True ManPower" width={60} height={60} className="rounded-lg" />
                 <div>
                   <h3 className="text-2xl font-bold text-white">True ManPower® S.R.L.</h3>
                   <p className="text-blue-400 font-semibold text-sm tracking-wide">INTERNATIONAL RECRUITMENT</p>
