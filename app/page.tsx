@@ -125,7 +125,7 @@ export default function TrueManPowerPremium() {
     RO: {
       home: "Acasă",
       about: "Despre Noi",
-      industries: "Industrii",
+      industrii: "Industrii",
       pricing: "Prețuri",
       process: "Proces",
       contact: "Contact",
@@ -199,7 +199,13 @@ export default function TrueManPowerPremium() {
           <div className="flex items-center justify-between h-20">
             {/* Logo */}
             <div className="flex items-center space-x-4">
-              <Image src="/logo.png" alt="True ManPower" width={60} height={60} className="rounded-lg shadow-md" />
+              <Image
+                src="/placeholder-logo.svg"
+                alt="True ManPower"
+                width={60}
+                height={60}
+                className="rounded-lg shadow-md"
+              />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">True ManPower® S.R.L.</h1>
                 <p className="text-sm text-blue-600 font-semibold tracking-wide">INTERNATIONAL RECRUITMENT</p>
@@ -378,9 +384,9 @@ export default function TrueManPowerPremium() {
           <div className="text-center mb-16">
             <Badge className="mb-8 bg-green-100 text-green-800 border-green-200 text-lg px-8 py-4 shadow-lg">
               <DollarSign className="h-5 w-5 mr-2" />
-              Transparent Pricing
+              Accessible Prices
             </Badge>
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900">Simple, Fair, Transparent</h2>
+            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900">Cheapest on the Market</h2>
             <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
               No hidden fees, no surprises. You know exactly what you pay for at every step of the process.
             </p>
@@ -947,7 +953,7 @@ export default function TrueManPowerPremium() {
           <div className="grid md:grid-cols-4 gap-8 mb-12">
             <div className="md:col-span-2">
               <div className="flex items-center space-x-4 mb-6">
-                <Image src="/logo.png" alt="True ManPower" width={60} height={60} className="rounded-lg" />
+                <Image src="/placeholder-logo.svg" alt="True ManPower" width={60} height={60} className="rounded-lg" />
                 <div>
                   <h3 className="text-2xl font-bold text-white">True ManPower® S.R.L.</h3>
                   <p className="text-blue-400 font-semibold text-sm tracking-wide">INTERNATIONAL RECRUITMENT</p>
