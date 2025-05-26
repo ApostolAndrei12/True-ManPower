@@ -115,7 +115,7 @@ export default function TrueManPowerPremium() {
       heroTitle: "Recruiting Skilled Workers Overseas",
       heroSubtitle: "From Pakistan, Bangladesh, Nepal, Sri Lanka, Ethiopia, Turkey, and many others",
       heroDescription:
-        "We help skilled professionals from Asia and Africa find excellent career opportunities with Romanian companies. Simple process, transparent pricing, complete legal support.",
+        "We help skilled professionals and unqualified workers from Non-EU countries find excellent career opportunities with Romanian companies. Simple process, transparent pricing, complete legal support.",
       getStarted: "Get Started Today",
       learnMore: "Learn More",
       downloadGuide: "Free Recruitment Guide",
@@ -132,7 +132,7 @@ export default function TrueManPowerPremium() {
       heroTitle: "Recrutăm Lucrători Calificați din Străinătate",
       heroSubtitle: "Din Pakistan, Bangladesh, Nepal, Sri Lanka, Etiopia, Turcia, și multe altele",
       heroDescription:
-        "Ajutăm profesioniști calificați din Asia și Africa să găsească oportunități excelente de carieră cu companii românești. Proces simplu, prețuri transparente, suport legal complet.",
+        "Ajutăm profesioniști calificați și muncitori necalificați din Țările Non-EU să găsească oportunități excelente de carieră cu companii românești. Proces simplu, prețuri transparente, suport legal complet.",
       getStarted: "Începe Astăzi",
       learnMore: "Află Mai Mult",
       downloadGuide: "Ghid Gratuit de Recrutare",
