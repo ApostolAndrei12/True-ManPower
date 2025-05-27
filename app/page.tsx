@@ -60,6 +60,7 @@ export default function Home() {
               <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
                 <Button size="lg" className="button-gradient">
                   Vezi Prețurile
+                >
                 </Button>
                 <Button 
                   size="lg" 
