@@ -733,7 +733,7 @@ export default function TrueManPowerPremium() {
             <div className="flex items-center space-x-8 text-gray-600">
               <div className="flex items-center space-x-2">
                 <Phone className="h-4 w-4 text-blue-600" />
-                <span className="font-medium">+40 799 870 3265</span>
+                <span className="font-medium">+40 799 870 326</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="h-4 w-4 text-blue-600" />
@@ -1424,7 +1424,7 @@ export default function TrueManPowerPremium() {
                       <h3 className="font-semibold text-gray-900">
                         {language === "RO" ? "Telefon" : "Phone"}
                       </h3>
-                      <p className="text-blue-600">+40 799 870 3265</p>
+                      <p className="text-blue-600">+40 799 870 326</p>
                     </div>
                   </div>
 
@@ -1762,7 +1762,7 @@ export default function TrueManPowerPremium() {
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-blue-400" />
-                  <span className="text-gray-400">+40 799 870 3265</span>
+                  <span className="text-gray-400">+40 799 870 326</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-blue-400" />
