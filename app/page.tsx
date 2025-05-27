@@ -59,6 +59,8 @@ import {
   Crown,
   Briefcase,
   Checkbox,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react"
 
 interface FormData {
@@ -346,12 +348,17 @@ export default function TrueManPowerPremium() {
       industry: language === "RO" ? "Domeniul de Activitate" : "Industry",
       workersNeeded: language === "RO" ? "Număr de Muncitori" : "Number of Workers",
       phone: language === "RO" ? "Telefon" : "Phone",
-      email: language === "RO" ? "Email" : "Email"
+      email: language === "RO" ? "Email" : "Email",
+      message: language === "RO" ? "Mesaj (Opțional)" : "Message (Optional)",
+      preferredContact: language === "RO" ? "Metoda Preferată de Contact" : "Preferred Contact Method",
+      urgency: language === "RO" ? "Urgența Recrutării" : "Recruitment Urgency"
     },
     cta: {
       requestQuote: language === "RO" ? "Solicită Ofertă" : "Request Quote",
       getStarted: language === "RO" ? "Începe Acum" : "Get Started",
-      learnMore: language === "RO" ? "Află Mai Multe" : "Learn More"
+      learnMore: language === "RO" ? "Află Mai Multe" : "Learn More",
+      downloadGuide: language === "RO" ? "Descarcă Ghidul" : "Download Guide",
+      sendRequest: language === "RO" ? "Trimite Solicitarea" : "Send Request"
     },
     industries: {
       construction: language === "RO" ? "Construcții" : "Construction",
@@ -360,12 +367,117 @@ export default function TrueManPowerPremium() {
       logistics: language === "RO" ? "Logistică" : "Logistics",
       agriculture: language === "RO" ? "Agricultură" : "Agriculture",
       cleaning: language === "RO" ? "Curățenie" : "Cleaning",
-      housekeeping: language === "RO" ? "Housekeeping" : "Housekeeping"
+      housekeeping: language === "RO" ? "Housekeeping" : "Housekeeping",
+      other: language === "RO" ? "Alte Domenii" : "Other Industries"
     },
     pricingPlans: {
-      standard: language === "RO" ? "1-5 Muncitori" : "1-5 Workers",
-      professional: language === "RO" ? "6-15 Muncitori" : "6-15 Workers",
-      enterprise: language === "RO" ? "15+ Muncitori" : "15+ Workers"
+      kickstart: {
+        name: language === "RO" ? "Pachet Kickstart" : "Kickstart Package",
+        subtitle: language === "RO" ? "Pentru firme mici, start rapid și sigur" : "For small companies, quick and safe start",
+        employeeRange: language === "RO" ? "1-5 angajați" : "1-5 employees",
+        features: language === "RO" ? [
+          "Selecție riguroasă a candidaților",
+          "Procesare completă acte",
+          "Asistență viză și permis",
+          "Suport în limba română",
+          "Ghid de integrare"
+        ] : [
+          "Rigorous candidate selection",
+          "Complete document processing",
+          "Visa and permit assistance",
+          "Romanian language support",
+          "Integration guide"
+        ]
+      },
+      boost: {
+        name: language === "RO" ? "Pachet Boost" : "Boost Package",
+        subtitle: language === "RO" ? "Creștere accelerată, echipe flexibile" : "Accelerated growth, flexible teams",
+        employeeRange: language === "RO" ? "6-15 angajați" : "6-15 employees",
+        features: language === "RO" ? [
+          "Tot ce include Pachetul Kickstart",
+          "Procesare prioritară acte",
+          "Manager dedicat de cont",
+          "Suport extins 12/7",
+          "Asistență cazare"
+        ] : [
+          "Everything in Kickstart Package",
+          "Priority document processing",
+          "Dedicated account manager",
+          "Extended 12/7 support",
+          "Housing assistance"
+        ]
+      },
+      powerTeam: {
+        name: language === "RO" ? "Pachet Power Team" : "Power Team Package",
+        subtitle: language === "RO" ? "Echipa ta de top, fără bătăi de cap" : "Your top team, hassle-free",
+        employeeRange: language === "RO" ? "16-30 angajați" : "16-30 employees",
+        features: language === "RO" ? [
+          "Tot ce include Pachetul Boost",
+          "Procesare ultra-rapidă",
+          "Suport 24/7 dedicat",
+          "Consultanță juridică",
+          "Program complet de integrare"
+        ] : [
+          "Everything in Boost Package",
+          "Ultra-fast processing",
+          "Dedicated 24/7 support",
+          "Legal consulting",
+          "Complete integration program"
+        ]
+      },
+      scaleUp: {
+        name: language === "RO" ? "Pachet Scale-Up" : "Scale-Up Package",
+        subtitle: language === "RO" ? "Extindere strategică și optimizare" : "Strategic expansion and optimization",
+        employeeRange: language === "RO" ? "31-50 angajați" : "31-50 employees",
+        features: language === "RO" ? [
+          "Tot ce include Pachetul Power Team",
+          "Strategie personalizată de recrutare",
+          "Echipă dedicată de suport",
+          "Rapoarte și analize detaliate",
+          "Training și dezvoltare"
+        ] : [
+          "Everything in Power Team Package",
+          "Customized recruitment strategy",
+          "Dedicated support team",
+          "Detailed reports and analytics",
+          "Training and development"
+        ]
+      },
+      corporate: {
+        name: language === "RO" ? "Pachet Corporate Elite" : "Corporate Elite Package",
+        subtitle: language === "RO" ? "Soluția completă pentru companii mari" : "Complete solution for large companies",
+        employeeRange: language === "RO" ? "50+ angajați" : "50+ employees",
+        features: language === "RO" ? [
+          "Soluție completă personalizată",
+          "Echipă dedicată de specialiști",
+          "Suport executiv permanent",
+          "Servicii premium de relocare",
+          "Soluții la cheie de integrare"
+        ] : [
+          "Complete customized solution",
+          "Dedicated team of specialists",
+          "Permanent executive support",
+          "Premium relocation services",
+          "Turnkey integration solutions"
+        ]
+      }
+    },
+    urgencyOptions: {
+      urgent: language === "RO" ? "Urgentă (1-2 săptămâni)" : "Urgent (1-2 weeks)",
+      normal: language === "RO" ? "Normală (2-4 săptămâni)" : "Normal (2-4 weeks)",
+      planned: language === "RO" ? "Planificată (1-3 luni)" : "Planned (1-3 months)"
+    },
+    footer: {
+      quickLinks: language === "RO" ? "Navigare Rapidă" : "Quick Links",
+      legalSupport: language === "RO" ? "Aspecte Legale și Suport" : "Legal & Support",
+      privacyPolicy: language === "RO" ? "Politica de Confidențialitate" : "Privacy Policy",
+      termsConditions: language === "RO" ? "Termeni și Condiții" : "Terms & Conditions",
+      cookiePolicy: language === "RO" ? "Politica de Cookie-uri" : "Cookie Policy",
+      supportCenter: language === "RO" ? "Centru de Suport" : "Support Center",
+      contact: language === "RO" ? "Contact" : "Contact",
+      workingHours: language === "RO" ? "Program" : "Working Hours",
+      workingHoursValue: language === "RO" ? "Luni - Vineri: 9:00 - 18:00" : "Monday - Friday: 9:00 - 18:00",
+      allRightsReserved: language === "RO" ? "Toate drepturile rezervate." : "All rights reserved."
     }
   }
 
@@ -450,6 +562,171 @@ export default function TrueManPowerPremium() {
       </button>
     </div>
   );
+
+  const teamMembers = [
+    {
+      name: "Apostol Andrei-Eusebiu",
+      role: {
+        RO: "Fondator & Director Executiv",
+        EN: "Founder & CEO"
+      },
+      quote: {
+        RO: "Misiunea noastră la True ManPower® este să construim punți între continente și să transformăm provocările în oportunități. Credem în puterea conexiunilor umane și în potențialul extraordinar care se naște atunci când aducem împreună talentul global cu viziunea antreprenorială românească.",
+        EN: "Our mission at True ManPower® is to build bridges between continents and transform challenges into opportunities. We believe in the power of human connections and the extraordinary potential that emerges when we bring together global talent with Romanian entrepreneurial vision."
+      },
+      achievements: {
+        RO: ["Recrutor Certificat", "Experiență Internațională", "Dedicat Excelenței"],
+        EN: ["Certified Recruiter", "International Experience", "Dedicated to Excellence"]
+      },
+      stats: {
+        RO: [
+          { value: "500+", label: "Angajări de Succes" },
+          { value: "15+", label: "Țări Partenere" }
+        ],
+        EN: [
+          { value: "500+", label: "Successful Placements" },
+          { value: "15+", label: "Partner Countries" }
+        ]
+      }
+    },
+    {
+      name: "Strungaru Elena",
+      role: {
+        RO: "Asistent Executiv & Manager de Recrutare",
+        EN: "Executive Assistant & Recruitment Manager"
+      },
+      quote: {
+        RO: "Succesul în recrutarea internațională vine din atenția la detalii și înțelegerea profundă a nevoilor atât ale angajatorilor, cât și ale candidaților. La True ManPower®, construim relații pe termen lung bazate pe încredere și profesionalism.",
+        EN: "Success in international recruitment comes from attention to detail and a deep understanding of both employers' and candidates' needs. At True ManPower®, we build long-term relationships based on trust and professionalism."
+      },
+      achievements: {
+        RO: ["Expert în Recrutare", "Specialist HR", "Coordonator de Echipă"],
+        EN: ["Recruitment Expert", "HR Specialist", "Team Coordinator"]
+      },
+      stats: {
+        RO: [
+          { value: "200+", label: "Proiecte Gestionate" },
+          { value: "98%", label: "Rata de Succes" }
+        ],
+        EN: [
+          { value: "200+", label: "Managed Projects" },
+          { value: "98%", label: "Success Rate" }
+        ]
+      }
+    }
+  ];
+
+  // Team Member Card Component
+  const TeamMemberCard = ({ member, language }) => (
+    <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-gray-900 rounded-3xl overflow-hidden p-8 md:p-12 lg:p-16">
+      <div className="grid md:grid-cols-12 gap-8 items-center">
+        {/* Member Image Column */}
+        <div className="md:col-span-4 text-center md:text-left">
+          <div className="relative inline-block">
+            {/* Decorative Elements */}
+            <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-600/10 rounded-full blur-2xl"></div>
+            
+            {/* Member Image Container */}
+            <div className="relative w-48 h-48 mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 p-1">
+              <div className="w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
+                <Users className="h-20 w-20 text-blue-400" />
+              </div>
+            </div>
+          </div>
+
+          {/* Member Name and Title */}
+          <div className="mt-6 space-y-2">
+            <h3 className="text-2xl font-bold text-white">{member.name}</h3>
+            <p className="text-blue-400 font-semibold">
+              {member.role[language]}
+            </p>
+          </div>
+
+          {/* Stats */}
+          <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
+            {member.stats[language].map((stat, index) => (
+              <div key={index} className="bg-blue-900/30 backdrop-blur-sm px-4 py-2 rounded-xl">
+                <div className="text-2xl font-bold text-white">{stat.value}</div>
+                <div className="text-sm text-gray-400">{stat.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Message Column */}
+        <div className="md:col-span-8 space-y-8">
+          <div className="space-y-6">
+            <blockquote className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
+              {member.quote[language]}
+            </blockquote>
+
+            {/* Achievements */}
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+              {member.achievements[language].map((achievement, index) => (
+                <div key={index} className="flex items-center gap-3">
+                  <Award className="h-5 w-5 text-blue-400" />
+                  <span className="text-gray-300">{achievement}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Team Section Component with Slider
+  const TeamSection = ({ language }) => {
+    const [currentMemberIndex, setCurrentMemberIndex] = useState(0);
+
+    const nextMember = () => {
+      setCurrentMemberIndex((prev) => (prev + 1) % teamMembers.length);
+    };
+
+    const prevMember = () => {
+      setCurrentMemberIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+    };
+
+    return (
+      <div className="relative">
+        <div className="overflow-hidden">
+          <div className="transition-all duration-500 ease-in-out">
+            <TeamMemberCard member={teamMembers[currentMemberIndex]} language={language} />
+          </div>
+        </div>
+
+        {/* Navigation Arrows */}
+        <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between pointer-events-none">
+          <button
+            onClick={prevMember}
+            className="pointer-events-auto transform -translate-x-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300"
+          >
+            <ChevronLeft className="h-6 w-6" />
+          </button>
+          <button
+            onClick={nextMember}
+            className="pointer-events-auto transform translate-x-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300"
+          >
+            <ChevronRight className="h-6 w-6" />
+          </button>
+        </div>
+
+        {/* Dots Indicator */}
+        <div className="flex justify-center mt-8 space-x-2">
+          {teamMembers.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentMemberIndex(index)}
+              className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                index === currentMemberIndex ? 'bg-blue-600 w-6' : 'bg-gray-400'
+              }`}
+            />
+          ))}
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
@@ -1207,6 +1484,27 @@ export default function TrueManPowerPremium() {
                     </div>
 
                     <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-900" htmlFor="urgency">
+                        {t.formLabels.urgency}
+                      </label>
+                      <Select
+                        value={formData.urgency}
+                        onValueChange={(value) => setFormData(prev => ({ ...prev, urgency: value }))}
+                      >
+                        <SelectTrigger>
+                          <SelectValue placeholder="Selectați urgența" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="urgent">Urgentă (1-2 săptămâni)</SelectItem>
+                          <SelectItem value="normal">Normală (2-4 săptămâni)</SelectItem>
+                          <SelectItem value="planificat">Planificată (1-3 luni)</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+
+                  <div className="grid md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
                       <label className="text-sm font-medium text-gray-900" htmlFor="phone">
                         {t.formLabels.phone}
                       </label>
@@ -1219,33 +1517,116 @@ export default function TrueManPowerPremium() {
                         required
                       />
                     </div>
+
+                    <div className="space-y-2">
+                      <label className="text-sm font-medium text-gray-900" htmlFor="email">
+                        {t.formLabels.email}
+                      </label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder={t.formLabels.email}
+                        value={formData.email}
+                        onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                        required
+                      />
+                    </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium text-gray-900" htmlFor="email">
-                      {t.formLabels.email}
+                    <label className="text-sm font-medium text-gray-900" htmlFor="message">
+                      {t.formLabels.message}
                     </label>
-                    <Input
-                      id="email"
-                      type="email"
-                      placeholder={t.formLabels.email}
-                      value={formData.email}
-                      onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                      required
+                    <Textarea
+                      id="message"
+                      placeholder={t.formLabels.message}
+                      value={formData.message}
+                      onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                      className="min-h-[100px] transition-all duration-300 focus:scale-105"
                     />
                   </div>
 
+                  <div className="space-y-2">
+                    <label className="text-sm font-medium text-gray-900" htmlFor="preferredContact">
+                      {t.formLabels.preferredContact}
+                    </label>
+                    <div className="flex gap-4">
+                      <label className="flex items-center space-x-2">
+                        <input
+                          type="radio"
+                          name="preferredContact"
+                          value="email"
+                          checked={formData.preferredContact === "email"}
+                          onChange={(e) => setFormData(prev => ({ ...prev, preferredContact: e.target.value }))}
+                          className="text-blue-600"
+                        />
+                        <span>Email</span>
+                      </label>
+                      <label className="flex items-center space-x-2">
+                        <input
+                          type="radio"
+                          name="preferredContact"
+                          value="phone"
+                          checked={formData.preferredContact === "phone"}
+                          onChange={(e) => setFormData(prev => ({ ...prev, preferredContact: e.target.value }))}
+                          className="text-blue-600"
+                        />
+                        <span>Telefon</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-2">
+                    <Checkbox
+                      id="terms"
+                      checked={formData.acceptTerms}
+                      onCheckedChange={(checked) => 
+                        setFormData(prev => ({ ...prev, acceptTerms: checked as boolean }))
+                      }
+                      required
+                    />
+                    <label
+                      htmlFor="terms"
+                      className="text-sm text-gray-600 cursor-pointer"
+                    >
+                      Sunt de acord cu <a href="#" className="text-blue-600 hover:underline">termenii și condițiile</a> și <a href="#" className="text-blue-600 hover:underline">politica de confidențialitate</a>
+                    </label>
+                  </div>
+
                   <Button 
-                    type="submit"
-                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg font-semibold"
+                    type="submit" 
+                    className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-6 text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
                   >
-                    {t.cta.requestQuote}
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    Trimite Solicitarea
+                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   </Button>
                 </form>
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="py-24 bg-gradient-to-br from-gray-900 to-blue-900">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg inline-flex items-center">
+              <Users className="h-5 w-5 mr-2" />
+              {language === "RO" ? "Echipa Noastră" : "Our Team"}
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              {language === "RO" 
+                ? "Profesioniștii din Spatele Succesului" 
+                : "The Professionals Behind Success"}
+            </h2>
+            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+              {language === "RO"
+                ? "Cunoaște echipa dedicată care face posibilă conectarea talentului global cu oportunitățile din România."
+                : "Meet the dedicated team that makes connecting global talent with opportunities in Romania possible."}
+            </p>
+          </div>
+          <TeamSection language={language} />
         </div>
       </section>
 
@@ -1292,7 +1673,7 @@ export default function TrueManPowerPremium() {
 
             <div>
               <h4 className="text-lg font-semibold mb-6">
-                {language === "RO" ? "Navigare Rapidă" : "Quick Links"}
+                {t.footer.quickLinks}
               </h4>
               <div className="space-y-3">
                 {[
@@ -1316,30 +1697,30 @@ export default function TrueManPowerPremium() {
 
             <div>
               <h4 className="text-lg font-semibold mb-6">
-                {language === "RO" ? "Aspecte Legale și Suport" : "Legal & Support"}
+                {t.footer.legalSupport}
               </h4>
               <div className="space-y-3">
                 <a href="#" className="block text-gray-400 hover:text-blue-400 transition-colors">
-                  {language === "RO" ? "Politica de Confidențialitate" : "Privacy Policy"}
+                  {t.footer.privacyPolicy}
                 </a>
                 <a href="#" className="block text-gray-400 hover:text-blue-400 transition-colors">
-                  {language === "RO" ? "Termeni și Condiții" : "Terms & Conditions"}
+                  {t.footer.termsConditions}
                 </a>
                 <a href="#" className="block text-gray-400 hover:text-blue-400 transition-colors">
-                  {language === "RO" ? "Politica de Cookie-uri" : "Cookie Policy"}
+                  {t.footer.cookiePolicy}
                 </a>
                 <a href="#" className="block text-gray-400 hover:text-blue-400 transition-colors">
-                  {language === "RO" ? "Centru de Suport" : "Support Center"}
+                  {t.footer.supportCenter}
                 </a>
                 <a href="#" className="block text-gray-400 hover:text-blue-400 transition-colors">
-                  {language === "RO" ? "Descarcă Ghidul Procesului" : "Download Process Guide"}
+                  {t.downloadGuide}
                 </a>
               </div>
             </div>
 
             <div>
               <h4 className="text-lg font-semibold mb-6">
-                {language === "RO" ? "Contact" : "Contact"}
+                {t.footer.contact}
               </h4>
               <div className="space-y-4">
                 <div className="flex items-center space-x-3">
@@ -1352,7 +1733,7 @@ export default function TrueManPowerPremium() {
                 </div>
                 <div className="flex items-center space-x-3">
                   <Clock className="h-5 w-5 text-blue-400" />
-                  <span className="text-gray-400">Luni - Vineri: 9:00 - 18:00</span>
+                  <span className="text-gray-400">{t.footer.workingHoursValue}</span>
                 </div>
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-blue-400" />
@@ -1362,120 +1743,9 @@ export default function TrueManPowerPremium() {
             </div>
           </div>
 
-          {/* Founder Section */}
-          <div className="mt-16 pt-16 border-t border-gray-800">
-            <div className="max-w-6xl mx-auto">
-              <div className="relative bg-gradient-to-br from-blue-900 via-gray-900 to-gray-900 rounded-3xl overflow-hidden">
-                {/* Background Pattern */}
-                <div className="absolute inset-0 opacity-10">
-                  <div className="absolute inset-0 bg-[linear-gradient(30deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(150deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(30deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(150deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(60deg,#99999955_25%,transparent_25.5%,transparent_75%,#99999955_75%,#99999955)] bg-cover bg-center" style={{ backgroundSize: '80px 140px' }}></div>
-                </div>
-
-                <div className="relative p-8 md:p-12 lg:p-16">
-                  <div className="grid md:grid-cols-12 gap-8 items-center">
-                    {/* Founder Image Column */}
-                    <div className="md:col-span-4 text-center md:text-left">
-                      <div className="relative inline-block">
-                        {/* Decorative Elements */}
-                        <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
-                        <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-600/10 rounded-full blur-2xl"></div>
-                        
-                        {/* Founder Image Container */}
-                        <div className="relative w-48 h-48 mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 p-1">
-                          <div className="w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
-                            <Users className="h-20 w-20 text-blue-400" />
-                          </div>
-                        </div>
-
-                        {/* Experience Badge */}
-                        <div className="absolute -right-2 -bottom-2 bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
-                          10+ {language === "RO" ? "ani experiență" : "years experience"}
-                        </div>
-                      </div>
-
-                      {/* Founder Name and Title */}
-                      <div className="mt-6 space-y-2">
-                        <h3 className="text-2xl font-bold text-white">Apostol Andrei-Eusebiu</h3>
-                        <p className="text-blue-400 font-semibold">
-                          {language === "RO" ? "Fondator & Director Executiv" : "Founder & CEO"}
-                        </p>
-                      </div>
-
-                      {/* Social Proof */}
-                      <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
-                        <div className="bg-blue-900/30 backdrop-blur-sm px-4 py-2 rounded-xl">
-                          <div className="text-2xl font-bold text-white">500+</div>
-                          <div className="text-sm text-gray-400">{language === "RO" ? "Angajări de Succes" : "Successful Placements"}</div>
-                        </div>
-                        <div className="bg-blue-900/30 backdrop-blur-sm px-4 py-2 rounded-xl">
-                          <div className="text-2xl font-bold text-white">15+</div>
-                          <div className="text-sm text-gray-400">{language === "RO" ? "Țări Partenere" : "Partner Countries"}</div>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Message Column */}
-                    <div className="md:col-span-8 space-y-8">
-                      <div className="space-y-6">
-                        <h4 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
-                          {language === "RO" 
-                            ? "Transformăm Viziunea în Realitate" 
-                            : "Transforming Vision into Reality"}
-                        </h4>
-                        
-                        <blockquote className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
-                          {language === "RO"
-                            ? "În lumea dinamică de astăzi, succesul în afaceri nu mai este limitat de granițe geografice. La True ManPower®, ne-am dedicat misiunea construirii de poduri între talentul global și ambiția antreprenorială românească. Fiecare conexiune pe care o creăm reprezintă mai mult decât o simplă recrutare - este o poveste de transformare, creștere și impact pozitiv în comunitate."
-                            : "In today's dynamic world, business success is no longer limited by geographical boundaries. At True ManPower®, we've dedicated our mission to building bridges between global talent and Romanian entrepreneurial ambition. Every connection we create represents more than just recruitment - it's a story of transformation, growth, and positive community impact."}
-                        </blockquote>
-
-                        <p className="text-gray-400 text-lg">
-                          {language === "RO"
-                            ? "Prin inovație, dedicare și o înțelegere profundă a pieței globale, transformăm provocările în oportunități și visurile în realitate. Fiecare zi este o nouă șansă de a crea impact și de a contribui la succesul clienților noștri."
-                            : "Through innovation, dedication, and a deep understanding of the global market, we transform challenges into opportunities and dreams into reality. Each day is a new chance to create impact and contribute to our clients' success."}
-                        </p>
-                      </div>
-
-                      {/* Core Values */}
-                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-                        <div className="flex items-center gap-3">
-                          <Heart className="h-5 w-5 text-blue-400" />
-                          <span className="text-gray-300">{language === "RO" ? "Pasiune" : "Passion"}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Shield className="h-5 w-5 text-blue-400" />
-                          <span className="text-gray-300">{language === "RO" ? "Integritate" : "Integrity"}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Target className="h-5 w-5 text-blue-400" />
-                          <span className="text-gray-300">{language === "RO" ? "Excelență" : "Excellence"}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Globe className="h-5 w-5 text-blue-400" />
-                          <span className="text-gray-300">{language === "RO" ? "Viziune Globală" : "Global Vision"}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Handshake className="h-5 w-5 text-blue-400" />
-                          <span className="text-gray-300">{language === "RO" ? "Parteneriat" : "Partnership"}</span>
-                        </div>
-                        <div className="flex items-center gap-3">
-                          <Award className="h-5 w-5 text-blue-400" />
-                          <span className="text-gray-300">{language === "RO" ? "Inovație" : "Innovation"}</span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
           <div className="mt-12 pt-8 border-t border-gray-800 text-center text-gray-400">
             <p>
-              © {new Date().getFullYear()} True ManPower® S.R.L. 
-              {language === "RO" 
-                ? " Toate drepturile rezervate." 
-                : " All rights reserved."}
+              © {new Date().getFullYear()} True ManPower® S.R.L. {t.footer.allRightsReserved}
             </p>
           </div>
         </div>
