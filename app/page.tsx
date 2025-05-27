@@ -5,9 +5,9 @@ import Image from "next/image"
 import { motion } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import AnimatedSection from "@/components/sections/AnimatedSection"
-import { ModernCard } from "@/components/ui/modern-card"
+import ModernCard from "@/components/ui/modern-card"
 import { Badge } from "@/components/ui/badge"
-import { Mail, Phone, ArrowRight } from 'lucide-react'
+import { Mail, Phone } from 'lucide-react'
 
 export default function Home() {
   const [currentSlide, setCurrentSlide] = useState(0)
@@ -58,15 +58,17 @@ export default function Home() {
                 Conectăm companiile românești cu profesioniști din Asia, Africa și nu numai
               </p>
               <div className="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
-                <Button 
-                  size="lg" 
-                  className="group bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 text-xl font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
-                  onClick={() => scrollToSection("pricing")}
-                >
-                  <ArrowRight className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
+                <Button size="lg" className="button-gradient">
                   Vezi Prețurile
+                >
                 </Button>
                 <Button 
+                  size="lg" 
+                  variant="outline" 
+                  className="bg-white/10 hover:bg-white/20 flex items-center gap-2"
+                  onClick={() => scrollToSection('contact')}
+                  </Button>
+                 <Button 
                   size="lg" 
                   className="group bg-white/90 hover:bg-blue-50 text-blue-600 px-12 py-6 text-xl font-semibold shadow-2xl backdrop-blur-sm transition-all duration-300 transform hover:scale-105 border-2 border-blue-600"
                   onClick={() => scrollToSection('contact')}
@@ -76,8 +78,6 @@ export default function Home() {
                   Contactați-ne acum
                   <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </div>
-            </motion.div>
 
             {/* Avantaje cu Badge-uri */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -384,4 +384,3 @@ export default function Home() {
     </main>
   )
 }
-
