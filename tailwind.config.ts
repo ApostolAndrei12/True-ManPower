@@ -11,7 +11,10 @@ const config: Config = {
   theme: {
   	extend: {
   		colors: {
-  			background: 'hsl(var(--background))',
+  			background: {
+  				DEFAULT: '#FFFFFF',
+  				alt: '#F3F4F6',
+  			},
   			foreground: 'hsl(var(--foreground))',
   			card: {
   				DEFAULT: 'hsl(var(--card))',
@@ -22,11 +25,13 @@ const config: Config = {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
+  				DEFAULT: '#1E40AF',
+  				dark: '#1E3A8A',
   				foreground: 'hsl(var(--primary-foreground))'
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
+  				DEFAULT: '#FF6B00',
+  				dark: '#E65A00',
   				foreground: 'hsl(var(--secondary-foreground))'
   			},
   			muted: {
@@ -50,6 +55,10 @@ const config: Config = {
   				'3': 'hsl(var(--chart-3))',
   				'4': 'hsl(var(--chart-4))',
   				'5': 'hsl(var(--chart-5))'
+  			},
+  			text: {
+  				dark: '#1F2937',
+  				light: '#6B7280',
   			},
   			sidebar: {
   				DEFAULT: 'hsl(var(--sidebar-background))',

@@ -2,73 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --primary: #1E40AF;
-  --primary-dark: #1E3A8A;
-  --secondary: #FF6B00;
-  --secondary-dark: #E65A00;
-  --text-dark: #1F2937;
-  --text-light: #6B7280;
-  --background: #FFFFFF;
-  --background-alt: #F3F4F6;
-}
-
 @layer base {
-  body {
-    @apply bg-background text-text-dark;
-    font-family: var(--font-roboto), sans-serif;
-  }
-
-  h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-montserrat), sans-serif;
-    @apply font-bold tracking-tight;
+  html {
+    @apply text-text-dark bg-background;
   }
 }
 
 @layer components {
+  .header-title {
+    @apply text-4xl sm:text-5xl lg:text-6xl font-bold text-text-dark mb-6;
+  }
+
+  .header-subtitle {
+    @apply text-xl sm:text-2xl text-text-light mt-4;
+  }
+
   .header-badge {
-    @apply inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold
-           bg-blue-100 text-blue-800 transition-all duration-300
-           hover:bg-blue-200 hover:scale-105 cursor-default;
+    @apply px-4 py-2 rounded-full bg-primary text-white font-medium;
   }
 
   .header-badge-alt {
-    @apply bg-orange-100 text-orange-800 hover:bg-orange-200;
+    @apply bg-secondary;
   }
 
   .primary-button {
-    @apply inline-flex items-center px-6 py-3 rounded-xl text-base font-semibold
-           bg-primary text-white transition-all duration-300 shadow-lg
-           hover:bg-primary-dark hover:scale-105 hover:shadow-xl
-           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
-  }
-
-  .secondary-button {
-    @apply inline-flex items-center px-6 py-3 rounded-xl text-base font-semibold
-           bg-white text-primary border-2 border-primary transition-all duration-300
-           hover:bg-primary hover:text-white hover:scale-105
-           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+    @apply px-8 py-3 bg-primary text-white rounded-lg font-semibold 
+           hover:bg-primary-dark transition-colors duration-200 text-center;
   }
 
   .split-button-container {
-    @apply flex space-x-2 sm:space-x-4;
+    @apply flex flex-col sm:flex-row gap-2;
   }
 
   .split-button {
-    @apply flex-1 px-4 py-3 rounded-xl text-sm sm:text-base font-semibold
-           transition-all duration-300 shadow-md
-           focus:outline-none focus:ring-2 focus:ring-offset-2;
+    @apply px-6 py-3 rounded-lg font-semibold transition-colors duration-200 text-center;
   }
 
   .split-button-primary {
-    @apply bg-primary text-white hover:bg-primary-dark
-           focus:ring-primary;
+    @apply bg-secondary text-white hover:bg-secondary-dark;
   }
 
   .split-button-secondary {
-    @apply bg-secondary text-white hover:bg-secondary-dark
-           focus:ring-secondary;
+    @apply bg-background-alt text-text-dark hover:bg-gray-200;
   }
+}
+
+@keyframes pulse-slow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.8;
+  }
+}
+
+.animate-pulse-slow {
+  animation: pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Animații */
@@ -97,10 +86,6 @@
 
 .animate-fadeInUp {
   animation: fadeInUp 0.6s ease-out forwards;
-}
-
-.animate-pulse-slow {
-  animation: pulse 3s infinite;
 }
 
 /* Responsive Typography */
