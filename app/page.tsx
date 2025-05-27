@@ -2,7 +2,7 @@
 "use client"
 
 import type { FormEvent } from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -670,14 +670,49 @@ export default function TrueManPowerPremium() {
   // Team Section Component with Slider
   const TeamSection = ({ language }) => {
     const [currentMemberIndex, setCurrentMemberIndex] = useState(0);
+    const timerRef = useRef<number | null>(null); // Folosim useRef pentru a stoca ID-ul timer-ului
+
+    // Funcție pentru a curăța timer-ul existent
+    const clearExistingTimer = () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+
+    const handleSetMemberIndex = (newIndex: number) => {
+      clearExistingTimer(); // Curățăm orice timer anterior
+      setCurrentMemberIndex(newIndex);
+
+      // Dacă noul membru selectat nu este primul (index 0), pornim un timer
+      // care va reseta selecția la primul membru după 20 de secunde.
+      if (newIndex !== 0) {
+        timerRef.current = window.setTimeout(() => {
+          setCurrentMemberIndex(0); // Resetează la Apostol Andrei-Eusebiu
+        }, 20000); // 20000 milisecunde = 20 secunde
+      }
+    };
 
     const nextMember = () => {
-      setCurrentMemberIndex((prev) => (prev + 1) % teamMembers.length);
+      const newIndex = (currentMemberIndex + 1) % teamMembers.length;
+      handleSetMemberIndex(newIndex);
     };
 
     const prevMember = () => {
-      setCurrentMemberIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+      const newIndex = (currentMemberIndex - 1 + teamMembers.length) % teamMembers.length;
+      handleSetMemberIndex(newIndex);
     };
+
+    const goToMember = (index: number) => {
+      handleSetMemberIndex(index);
+    };
+
+    // Hook useEffect pentru a curăța timer-ul la demontarea componentei
+    useEffect(() => {
+      return () => {
+        clearExistingTimer();
+      };
+    }, []);
 
     return (
       <div className="relative">
@@ -706,7 +741,7 @@ export default function TrueManPowerPremium() {
           {teamMembers.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentMemberIndex(index)}
+              onClick={() => goToMember(index)} // Am actualizat aici pentru a folosi goToMember
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentMemberIndex ? 'bg-blue-600 w-6' : 'bg-gray-400'
               }`}
@@ -946,7 +981,7 @@ export default function TrueManPowerPremium() {
           <div className="max-w-6xl mx-auto">
             <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg">
               <Globe className="h-5 w-5 mr-3" />
-              {language === "RO" ? "Agenție de Recrutare Internațională Oficială" : "Trusted International Recruitment Since 2025"}
+              {language === "RO" ? "Recrutare Internațională Atestată" : "Trusted International Recruitment Since 2025"}
             </Badge>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-gray-900">
