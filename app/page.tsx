@@ -185,11 +185,11 @@ export default function TrueManPowerPremium() {
       ? "Recrutăm forță de muncă calificată și necalificată din țări non-UE pentru companii din România"
       : "We recruit skilled and unskilled workforce from non-EU countries for Romanian companies",
     heroSubtitle: language === "RO"
-      ? "Soluția completă de recrutare a forței de muncă din țări non-UE pentru companiile românești"
-      : "Complete recruitment solution for non-EU workforce for Romanian companies",
+      ? "Conectăm companiile românești cu profesioniști din Asia, Africa și nu numai"
+      : "Connecting Romanian companies with professionals from Asia, Africa and beyond",
     heroDescription: language === "RO"
-      ? "Oferim servicii complete de recrutare internațională, cu procesare rapidă și eficientă, fără costuri ascunse. Specializați în recrutarea forței de muncă din țări non-UE pentru companiile din România."
-      : "We provide complete international recruitment services, with fast and efficient processing, no hidden costs. Specialized in recruiting workforce from non-EU countries for companies in Romania.",
+      ? "Oferim servicii complete de recrutare internațională, aducând expertiza și talentul de peste ocean pentru a susține creșterea afacerii dumneavoastră. Procesare rapidă, eficientă și fără costuri ascunse."
+      : "We provide complete international recruitment services, bringing expertise and talent from overseas to support your business growth. Fast, efficient processing with no hidden costs.",
     seeOurPrices: language === "RO" ? "Vezi Prețurile" : "See Prices",
     downloadGuide: language === "RO" ? "Descarcă Ghidul Procesului" : "Download Process Guide",
     formLabels: {
@@ -1411,6 +1411,114 @@ export default function TrueManPowerPremium() {
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-blue-400" />
                   <span className="text-gray-400">România</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Founder Section */}
+          <div className="mt-16 pt-16 border-t border-gray-800">
+            <div className="max-w-6xl mx-auto">
+              <div className="relative bg-gradient-to-br from-blue-900 via-gray-900 to-gray-900 rounded-3xl overflow-hidden">
+                {/* Background Pattern */}
+                <div className="absolute inset-0 opacity-10">
+                  <div className="absolute inset-0 bg-[linear-gradient(30deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(150deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(30deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(150deg,#4f46e5_12%,transparent_12.5%,transparent_87%,#4f46e5_87.5%,#4f46e5),linear-gradient(60deg,#99999955_25%,transparent_25.5%,transparent_75%,#99999955_75%,#99999955)] bg-cover bg-center" style={{ backgroundSize: '80px 140px' }}></div>
+                </div>
+
+                <div className="relative p-8 md:p-12 lg:p-16">
+                  <div className="grid md:grid-cols-12 gap-8 items-center">
+                    {/* Founder Image Column */}
+                    <div className="md:col-span-4 text-center md:text-left">
+                      <div className="relative inline-block">
+                        {/* Decorative Elements */}
+                        <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+                        <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-600/10 rounded-full blur-2xl"></div>
+                        
+                        {/* Founder Image Container */}
+                        <div className="relative w-48 h-48 mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 p-1">
+                          <div className="w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
+                            <Users className="h-20 w-20 text-blue-400" />
+                          </div>
+                        </div>
+
+                        {/* Experience Badge */}
+                        <div className="absolute -right-2 -bottom-2 bg-blue-600 text-white text-sm font-semibold px-4 py-1 rounded-full shadow-lg">
+                          10+ {language === "RO" ? "ani experiență" : "years experience"}
+                        </div>
+                      </div>
+
+                      {/* Founder Name and Title */}
+                      <div className="mt-6 space-y-2">
+                        <h3 className="text-2xl font-bold text-white">Apostol Andrei-Eusebiu</h3>
+                        <p className="text-blue-400 font-semibold">
+                          {language === "RO" ? "Fondator & Director Executiv" : "Founder & CEO"}
+                        </p>
+                      </div>
+
+                      {/* Social Proof */}
+                      <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
+                        <div className="bg-blue-900/30 backdrop-blur-sm px-4 py-2 rounded-xl">
+                          <div className="text-2xl font-bold text-white">500+</div>
+                          <div className="text-sm text-gray-400">{language === "RO" ? "Angajări de Succes" : "Successful Placements"}</div>
+                        </div>
+                        <div className="bg-blue-900/30 backdrop-blur-sm px-4 py-2 rounded-xl">
+                          <div className="text-2xl font-bold text-white">15+</div>
+                          <div className="text-sm text-gray-400">{language === "RO" ? "Țări Partenere" : "Partner Countries"}</div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* Message Column */}
+                    <div className="md:col-span-8 space-y-8">
+                      <div className="space-y-6">
+                        <h4 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-600">
+                          {language === "RO" 
+                            ? "Transformăm Viziunea în Realitate" 
+                            : "Transforming Vision into Reality"}
+                        </h4>
+                        
+                        <blockquote className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
+                          {language === "RO"
+                            ? "În lumea dinamică de astăzi, succesul în afaceri nu mai este limitat de granițe geografice. La True ManPower®, ne-am dedicat misiunea construirii de poduri între talentul global și ambiția antreprenorială românească. Fiecare conexiune pe care o creăm reprezintă mai mult decât o simplă recrutare - este o poveste de transformare, creștere și impact pozitiv în comunitate."
+                            : "In today's dynamic world, business success is no longer limited by geographical boundaries. At True ManPower®, we've dedicated our mission to building bridges between global talent and Romanian entrepreneurial ambition. Every connection we create represents more than just recruitment - it's a story of transformation, growth, and positive community impact."}
+                        </blockquote>
+
+                        <p className="text-gray-400 text-lg">
+                          {language === "RO"
+                            ? "Prin inovație, dedicare și o înțelegere profundă a pieței globale, transformăm provocările în oportunități și visurile în realitate. Fiecare zi este o nouă șansă de a crea impact și de a contribui la succesul clienților noștri."
+                            : "Through innovation, dedication, and a deep understanding of the global market, we transform challenges into opportunities and dreams into reality. Each day is a new chance to create impact and contribute to our clients' success."}
+                        </p>
+                      </div>
+
+                      {/* Core Values */}
+                      <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
+                        <div className="flex items-center gap-3">
+                          <Heart className="h-5 w-5 text-blue-400" />
+                          <span className="text-gray-300">{language === "RO" ? "Pasiune" : "Passion"}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Shield className="h-5 w-5 text-blue-400" />
+                          <span className="text-gray-300">{language === "RO" ? "Integritate" : "Integrity"}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Target className="h-5 w-5 text-blue-400" />
+                          <span className="text-gray-300">{language === "RO" ? "Excelență" : "Excellence"}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Globe className="h-5 w-5 text-blue-400" />
+                          <span className="text-gray-300">{language === "RO" ? "Viziune Globală" : "Global Vision"}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Handshake className="h-5 w-5 text-blue-400" />
+                          <span className="text-gray-300">{language === "RO" ? "Parteneriat" : "Partnership"}</span>
+                        </div>
+                        <div className="flex items-center gap-3">
+                          <Award className="h-5 w-5 text-blue-400" />
+                          <span className="text-gray-300">{language === "RO" ? "Inovație" : "Innovation"}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
