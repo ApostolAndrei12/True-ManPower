@@ -980,17 +980,6 @@ export default function TrueManPowerPremium() {
                 </svg>
                 {language === "RO" ? "Contactați-ne" : "Contact us"}
               </Button>
-
-              <Button
-                size="lg"
-                variant="outline"
-                className="group border-2 border-blue-600 bg-white/90 text-blue-600 hover:bg-blue-50 px-12 py-6 text-xl font-semibold shadow-2xl backdrop-blur-sm transition-all duration-300 transform hover:scale-105"
-                onClick={() => setShowLeadMagnet(true)}
-              >
-                <Download className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
-                {t.downloadGuide}
-                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
-              </Button>
             </div>
 
             {/* Key Stats - Premium Version */}
