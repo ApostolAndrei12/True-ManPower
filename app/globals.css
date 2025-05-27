@@ -2,18 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --font-montserrat: 'Montserrat', sans-serif;
-  --font-roboto: 'Roboto', sans-serif;
-}
-
 body {
-  font-family: var(--font-montserrat);
-  @apply antialiased;
-}
-
-.font-roboto {
-  font-family: var(--font-roboto);
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
@@ -26,32 +16,28 @@ body {
   :root {
     --background: 0 0% 100%;
     --foreground: 222.2 84% 4.9%;
-    
     --card: 0 0% 100%;
     --card-foreground: 222.2 84% 4.9%;
-    
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
-    
     --primary: 221.2 83.2% 53.3%;
     --primary-foreground: 210 40% 98%;
-    
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
-    
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
-    
     --accent: 210 40% 96.1%;
     --accent-foreground: 222.2 47.4% 11.2%;
-    
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
-
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
     --ring: 221.2 83.2% 53.3%;
-    
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
     --radius: 0.75rem;
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
@@ -107,88 +93,8 @@ body {
   }
 }
 
-/* Animații pentru scroll */
-.animate-on-scroll {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.6s ease-out;
-}
-
-.animate-on-scroll.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Animații pentru hover */
-.hover-lift {
-  transition: transform 0.2s ease-out;
-}
-
-.hover-lift:hover {
-  transform: translateY(-4px);
-}
-
-/* Efecte pentru carduri */
-.card-shadow {
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease-in-out;
-}
-
-.card-shadow:hover {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-  transform: translateY(-2px);
-}
-
-/* Efecte pentru butoane */
-.button-gradient {
-  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 0.8));
-  transition: all 0.3s ease-in-out;
-}
-
-.button-gradient:hover {
-  filter: brightness(110%);
-  transform: translateY(-1px);
-}
-
-/* Efecte pentru imagini */
-.image-hover {
-  transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
-}
-
-.image-hover:hover {
-  transform: scale(1.05);
-  filter: brightness(1.1);
-}
-
-/* Animații pentru text */
-.text-gradient {
-  background: linear-gradient(to right, hsl(var(--primary)), hsl(var(--primary) / 0.8));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* Animații pentru navigație */
-.nav-link {
-  position: relative;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -2px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background-color: hsl(var(--primary));
-  transition: width 0.3s ease-in-out;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-/* Animații pentru secțiuni */
-@keyframes fadeInUp {
+/* Animații globale */
+@keyframes fadeIn {
   from {
     opacity: 0;
     transform: translateY(20px);
@@ -199,11 +105,7 @@ body {
   }
 }
 
-.fade-in-up {
-  animation: fadeInUp 0.6s ease-out forwards;
-}
-
-@keyframes slideInLeft {
+@keyframes slideIn {
   from {
     opacity: 0;
     transform: translateX(-20px);
@@ -214,51 +116,126 @@ body {
   }
 }
 
-.slide-in-left {
-  animation: slideInLeft 0.6s ease-out forwards;
-}
-
-@keyframes slideInRight {
+@keyframes scaleIn {
   from {
     opacity: 0;
-    transform: translateX(20px);
+    transform: scale(0.9);
   }
   to {
     opacity: 1;
-    transform: translateX(0);
+    transform: scale(1);
   }
 }
 
-.slide-in-right {
-  animation: slideInRight 0.6s ease-out forwards;
-}
-
-/* Stiluri pentru loading */
-.loading-skeleton {
-  background: linear-gradient(
-    90deg,
-    hsl(var(--muted)) 25%,
-    hsl(var(--muted) / 0.5) 50%,
-    hsl(var(--muted)) 75%
-  );
-  background-size: 200% 100%;
-  animation: loading 1.5s infinite;
-}
-
-@keyframes loading {
+@keyframes float {
   0% {
-    background-position: 200% 0;
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
   }
   100% {
-    background-position: -200% 0;
+    transform: translateY(0px);
   }
 }
 
-/* Responsive design helpers */
-.responsive-container {
-  @apply container mx-auto px-4 sm:px-6 lg:px-8;
+/* Clase de utilitate pentru animații */
+.animate-fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
 }
 
-.responsive-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6;
+.animate-slide-in {
+  animation: slideIn 0.6s ease-out forwards;
+}
+
+.animate-scale-in {
+  animation: scaleIn 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* Tranziții pentru hover */
+.hover-transition {
+  @apply transition-all duration-300 ease-in-out;
+}
+
+/* Stiluri pentru butoane unificate */
+.btn-primary {
+  @apply bg-gradient-to-r from-blue-600 to-blue-700 
+         text-white font-semibold px-6 py-3 rounded-xl
+         shadow-lg hover:shadow-xl transition-all duration-300
+         hover:scale-105 hover:from-blue-700 hover:to-blue-800
+         focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         active:scale-95;
+}
+
+.btn-secondary {
+  @apply bg-white border-2 border-blue-600 text-blue-600
+         font-semibold px-6 py-3 rounded-xl
+         shadow-lg hover:shadow-xl transition-all duration-300
+         hover:scale-105 hover:bg-blue-50
+         focus:ring-2 focus:ring-blue-500 focus:ring-offset-2
+         active:scale-95;
+}
+
+/* Card styles */
+.modern-card {
+  @apply bg-white rounded-2xl shadow-xl border border-gray-100
+         hover:shadow-2xl transition-all duration-300
+         hover:scale-105 p-6 relative overflow-hidden;
+}
+
+/* Section styles */
+.section-padding {
+  @apply py-24 px-4 sm:px-6 lg:px-8;
+}
+
+.section-title {
+  @apply text-4xl md:text-5xl font-bold text-gray-900 mb-6
+         leading-tight tracking-tight;
+}
+
+.section-subtitle {
+  @apply text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed;
+}
+
+/* Gradient backgrounds */
+.gradient-bg-primary {
+  @apply bg-gradient-to-br from-blue-50 to-indigo-50;
+}
+
+.gradient-bg-secondary {
+  @apply bg-gradient-to-br from-gray-50 to-blue-50;
+}
+
+/* Icon styles */
+.icon-container {
+  @apply w-12 h-12 rounded-xl flex items-center justify-center
+         bg-gradient-to-br from-blue-500 to-blue-600
+         text-white transform transition-transform duration-300
+         hover:scale-110 hover:rotate-3;
+}
+
+/* Text gradients */
+.text-gradient {
+  @apply bg-clip-text text-transparent bg-gradient-to-r
+         from-blue-600 to-indigo-600;
+}
+
+/* Responsive typography */
+@screen sm {
+  .section-title {
+    @apply text-5xl;
+  }
+  .section-subtitle {
+    @apply text-2xl;
+  }
+}
+
+@screen lg {
+  .section-title {
+    @apply text-6xl;
+  }
 }
