@@ -832,6 +832,15 @@ export default function TrueManPowerPremium() {
               >
                 {language === "RO" ? "Începe Acum" : "Get Started"}
               </Button>
+              <Button
+                className="bg-green-500 hover:bg-green-600 text-white flex items-center"
+                onClick={() => scrollToSection("contact")}
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+                {language === "RO" ? "Contactați-ne acum" : "Contact Us"}
+              </Button>
             </div>
 
             {/* Mobile Menu Button */}
@@ -883,6 +892,30 @@ export default function TrueManPowerPremium() {
                 </nav>
 
                 <div className="mt-8 pt-8 border-t border-white/20">
+                  <Button
+                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white mb-4"
+                    size="lg"
+                    onClick={() => {
+                      scrollToSection("contact");
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    {language === "RO" ? "Începe Acum" : "Get Started"}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                  <Button
+                    className="bg-green-500 hover:bg-green-600 text-white w-full flex items-center justify-center mb-4"
+                    size="lg"
+                    onClick={() => {
+                        scrollToSection("contact");
+                        setMobileMenuOpen(false);
+                    }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                       <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                    </svg>
+                    {language === "RO" ? "Contactați-ne acum" : "Contact Us"}
+                  </Button>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline" size="lg" className="w-full text-white border-white/20">
@@ -906,18 +939,6 @@ export default function TrueManPowerPremium() {
                       ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
-
-                  <Button
-                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white"
-                    size="lg"
-                    onClick={() => {
-                      scrollToSection("contact");
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    {language === "RO" ? "Începe Acum" : "Get Started"}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
                 </div>
               </div>
             </div>
