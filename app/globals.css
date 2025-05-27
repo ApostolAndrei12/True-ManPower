@@ -2,8 +2,116 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: Arial, Helvetica, sans-serif;
+:root {
+  --primary: #1E40AF;
+  --primary-dark: #1E3A8A;
+  --secondary: #FF6B00;
+  --secondary-dark: #E65A00;
+  --text-dark: #1F2937;
+  --text-light: #6B7280;
+  --background: #FFFFFF;
+  --background-alt: #F3F4F6;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-text-dark;
+    font-family: var(--font-roboto), sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-montserrat), sans-serif;
+    @apply font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .header-badge {
+    @apply inline-flex items-center px-4 py-1.5 rounded-full text-sm font-semibold
+           bg-blue-100 text-blue-800 transition-all duration-300
+           hover:bg-blue-200 hover:scale-105 cursor-default;
+  }
+
+  .header-badge-alt {
+    @apply bg-orange-100 text-orange-800 hover:bg-orange-200;
+  }
+
+  .primary-button {
+    @apply inline-flex items-center px-6 py-3 rounded-xl text-base font-semibold
+           bg-primary text-white transition-all duration-300 shadow-lg
+           hover:bg-primary-dark hover:scale-105 hover:shadow-xl
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  .secondary-button {
+    @apply inline-flex items-center px-6 py-3 rounded-xl text-base font-semibold
+           bg-white text-primary border-2 border-primary transition-all duration-300
+           hover:bg-primary hover:text-white hover:scale-105
+           focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2;
+  }
+
+  .split-button-container {
+    @apply flex space-x-2 sm:space-x-4;
+  }
+
+  .split-button {
+    @apply flex-1 px-4 py-3 rounded-xl text-sm sm:text-base font-semibold
+           transition-all duration-300 shadow-md
+           focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .split-button-primary {
+    @apply bg-primary text-white hover:bg-primary-dark
+           focus:ring-primary;
+  }
+
+  .split-button-secondary {
+    @apply bg-secondary text-white hover:bg-secondary-dark
+           focus:ring-secondary;
+  }
+}
+
+/* Animații */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.animate-fadeInUp {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+.animate-pulse-slow {
+  animation: pulse 3s infinite;
+}
+
+/* Responsive Typography */
+.header-title {
+  @apply text-4xl md:text-5xl lg:text-6xl font-bold leading-tight;
+  font-family: var(--font-montserrat), sans-serif;
+}
+
+.header-subtitle {
+  @apply text-xl md:text-2xl text-text-light leading-relaxed mt-6;
+  font-family: var(--font-roboto), sans-serif;
 }
 
 @layer utilities {
