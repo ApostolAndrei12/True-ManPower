@@ -6,14 +6,12 @@ const inter = Inter({ subsets: ["latin"] })
 
 const montserrat = Montserrat({
   subsets: ['latin'],
-  display: 'swap',
   variable: '--font-montserrat',
 })
 
 const roboto = Roboto({
+  weight: ['400', '500', '700'],
   subsets: ['latin'],
-  weight: ['300', '400', '500', '700'],
-  display: 'swap',
   variable: '--font-roboto',
 })
 
@@ -29,7 +27,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${montserrat.variable} ${roboto.variable}`}>
+    <html lang="ro" className={`${montserrat.variable} ${roboto.variable}`}>
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>

@@ -92,12 +92,42 @@ const config: Config = {
   				to: {
   					height: '0'
   				}
-  			}
+  			},
+  			'pulse-slow': {
+  				'0%, 100%': { opacity: '1' },
+  				'50%': { opacity: '0.8' },
+  			},
+  			fadeIn: {
+  				from: { opacity: '0', transform: 'translateY(20px)' },
+  				to: { opacity: '1', transform: 'translateY(0)' },
+  			},
+  			slideIn: {
+  				from: { opacity: '0', transform: 'translateX(-20px)' },
+  				to: { opacity: '1', transform: 'translateX(0)' },
+  			},
+  			scaleIn: {
+  				from: { opacity: '0', transform: 'scale(0.9)' },
+  				to: { opacity: '1', transform: 'scale(1)' },
+  			},
+  			float: {
+  				'0%': { transform: 'translateY(0px)' },
+  				'50%': { transform: 'translateY(-10px)' },
+  				'100%': { transform: 'translateY(0px)' },
+  			},
   		},
   		animation: {
   			'accordion-down': 'accordion-down 0.2s ease-out',
-  			'accordion-up': 'accordion-up 0.2s ease-out'
-  		}
+  			'accordion-up': 'accordion-up 0.2s ease-out',
+  			'pulse-slow': 'pulse-slow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+  			'fade-in': 'fadeIn 0.6s ease-out forwards',
+  			'slide-in': 'slideIn 0.6s ease-out forwards',
+  			'scale-in': 'scaleIn 0.6s ease-out forwards',
+  			'float': 'float 3s ease-in-out infinite',
+  		},
+  		fontFamily: {
+  			montserrat: ['var(--font-montserrat)', 'sans-serif'],
+  			roboto: ['var(--font-roboto)', 'sans-serif'],
+  		},
   	}
   },
   plugins: [require("tailwindcss-animate")],
