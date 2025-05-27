@@ -947,7 +947,7 @@ export default function TrueManPowerPremium() {
           <div className="max-w-6xl mx-auto">
             <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg">
               <Globe className="h-5 w-5 mr-3" />
-              {language === "RO" ? "Recrutare Internațională de Încredere din 2024" : "Trusted International Recruitment Since 2024"}
+              {language === "RO" ? "Recrutare Internațională Atestată" : "Trusted International Recruitment Since 2025"}
             </Badge>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-gray-900">
