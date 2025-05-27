@@ -341,7 +341,7 @@ export default function TrueManPowerPremium() {
       ? "Oferim servicii complete de recrutare internațională, aducând expertiza și talentul de peste ocean pentru a susține creșterea afacerii dumneavoastră. Procesare rapidă, eficientă și fără costuri ascunse."
       : "We provide complete international recruitment services, bringing expertise and talent from overseas to support your business growth. Fast, efficient processing with no hidden costs.",
     seeOurPrices: language === "RO" ? "Vezi Prețurile" : "See Prices",
-    downloadGuide: language === "RO" ? "Descarcă Ghidul Procesului" : "Download Process Guide",
+    contactUs: language === "RO" ? "Contactați-ne acum" : "Contact us now",
     formLabels: {
       companyName: language === "RO" ? "Numele Companiei" : "Company Name",
       contactName: language === "RO" ? "Persoana de Contact" : "Contact Person",
