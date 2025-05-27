@@ -55,6 +55,10 @@ import {
   Facebook,
   Linkedin,
   Instagram,
+  Rocket,
+  Crown,
+  Briefcase,
+  Checkbox,
 } from "lucide-react"
 
 interface FormData {
@@ -64,11 +68,17 @@ interface FormData {
   workersNeeded: string
   phone: string
   email: string
+  message: string
+  preferredContact: string
+  urgency: string
+  acceptTerms: boolean
 }
 
 interface Industry {
   icon: any // Using any here since we can't properly type Lucide icons
   name: string
+  description: string
+  color: string
 }
 
 interface Language {
@@ -91,8 +101,13 @@ export default function TrueManPowerPremium() {
     industry: "",
     workersNeeded: "",
     phone: "",
-    email: ""
+    email: "",
+    message: "",
+    preferredContact: "email",
+    urgency: "normal",
+    acceptTerms: false
   })
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   const heroImages = [
     "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
@@ -101,55 +116,188 @@ export default function TrueManPowerPremium() {
   ]
 
   const industries = [
-    { icon: HardHat, name: language === "RO" ? "Construcții" : "Construction" },
-    { icon: Factory, name: language === "RO" ? "Producție" : "Manufacturing" },
-    { icon: Utensils, name: language === "RO" ? "HoReCa" : "HoReCa" },
-    { icon: Wheat, name: language === "RO" ? "Agricultură" : "Agriculture" },
-    { icon: Truck, name: language === "RO" ? "Transport" : "Transportation" },
-    { icon: Cleaning, name: language === "RO" ? "Curățenie" : "Cleaning" },
-  ]
+    {
+      icon: <HardHat className="h-12 w-12" />,
+      name: "Construcții",
+      description: "Muncitori în construcții, dulgheri, fierari betoniști, zidari, finisori",
+      color: "from-orange-400 to-orange-600"
+    },
+    {
+      icon: <Factory className="h-12 w-12" />,
+      name: "Producție",
+      description: "Operatori producție, tehnicieni, muncitori calificați și necalificați",
+      color: "from-blue-400 to-blue-600"
+    },
+    {
+      icon: <UtensilsCrossed className="h-12 w-12" />,
+      name: "HoReCa",
+      description: "Bucătari, ospătari, personal hotelier, personal curățenie",
+      color: "from-green-400 to-green-600"
+    },
+    {
+      icon: <Truck className="h-12 w-12" />,
+      name: "Logistică",
+      description: "Șoferi, manipulanți marfă, operatori depozit",
+      color: "from-purple-400 to-purple-600"
+    },
+    {
+      icon: <Sprout className="h-12 w-12" />,
+      name: "Agricultură",
+      description: "Muncitori agricoli, operatori utilaje, personal sere",
+      color: "from-emerald-400 to-emerald-600"
+    },
+    {
+      icon: <Sparkles className="h-12 w-12" />,
+      name: "Curățenie",
+      description: "Personal curățenie industrială și comercială",
+      color: "from-cyan-400 to-cyan-600"
+    },
+    {
+      icon: <Home className="h-12 w-12" />,
+      name: "Housekeeping",
+      description: "Personal curățenie și întreținere spații",
+      color: "from-pink-400 to-pink-600"
+    },
+    {
+      icon: <Briefcase className="h-12 w-12" />,
+      name: "Alte Domenii",
+      description: "Soluții personalizate pentru orice domeniu de activitate",
+      color: "from-indigo-400 to-indigo-600"
+    }
+  ];
 
   const pricingPlans = [
     {
-      name: language === "RO" ? "Standard" : "Standard",
-      description: language === "RO" 
-        ? "Pentru companii mici cu nevoi de 1-5 muncitori"
-        : "For small companies needing 1-5 workers",
-      price: language === "RO" ? "Personalizat" : "Custom",
+      name: "Pachet Kickstart",
+      subtitle: "Pentru firme mici, start rapid și sigur",
+      employeeRange: "1-5 angajați",
+      price: "Personalizat",
+      isPopular: false,
       features: [
-        language === "RO" ? "Recrutare și selecție" : "Recruitment & selection",
-        language === "RO" ? "Verificare documente" : "Document verification",
-        language === "RO" ? "Asistență viză" : "Visa assistance",
-        language === "RO" ? "Suport de bază" : "Basic support",
+        "Selecție riguroasă a candidaților",
+        "Procesare completă acte",
+        "Asistență viză și permis",
+        "Suport în limba română",
+        "Ghid de integrare"
       ],
+      icon: Zap,
+      color: "from-blue-400 to-blue-600"
     },
     {
-      name: language === "RO" ? "Business" : "Business",
-      description: language === "RO"
-        ? "Pentru companii medii cu nevoi de 6-15 muncitori"
-        : "For medium companies needing 6-15 workers",
-      price: language === "RO" ? "Personalizat" : "Custom",
+      name: "Pachet Boost",
+      subtitle: "Creștere accelerată, echipe flexibile",
+      employeeRange: "6-15 angajați",
+      price: "Personalizat",
+      isPopular: true,
       features: [
-        language === "RO" ? "Tot ce include planul Standard" : "Everything in Standard",
-        language === "RO" ? "Asistență permis de muncă" : "Work permit assistance",
-        language === "RO" ? "Suport cazare" : "Accommodation support",
-        language === "RO" ? "Suport prioritar" : "Priority support",
+        "Tot ce include Pachetul Kickstart",
+        "Procesare prioritară acte",
+        "Manager dedicat de cont",
+        "Suport extins 12/7",
+        "Asistență cazare"
       ],
+      icon: Rocket,
+      color: "from-orange-400 to-orange-600"
     },
     {
-      name: language === "RO" ? "Enterprise" : "Enterprise",
-      description: language === "RO"
-        ? "Pentru companii mari cu nevoi de peste 15 muncitori"
-        : "For large companies needing 15+ workers",
-      price: language === "RO" ? "Personalizat" : "Custom",
+      name: "Pachet Power Team",
+      subtitle: "Echipa ta de top, fără bătăi de cap",
+      employeeRange: "16-30 angajați",
+      price: "Personalizat",
+      isPopular: false,
       features: [
-        language === "RO" ? "Tot ce include planul Business" : "Everything in Business",
-        language === "RO" ? "Manager de cont dedicat" : "Dedicated account manager",
-        language === "RO" ? "Suport 24/7" : "24/7 support",
-        language === "RO" ? "Soluții personalizate" : "Custom solutions",
+        "Tot ce include Pachetul Boost",
+        "Procesare ultra-rapidă",
+        "Suport 24/7 dedicat",
+        "Consultanță juridică",
+        "Program complet de integrare"
       ],
+      icon: Users,
+      color: "from-green-400 to-green-600"
     },
-  ]
+    {
+      name: "Pachet Scale-Up",
+      subtitle: "Extindere strategică și optimizare",
+      employeeRange: "31-50 angajați",
+      price: "Personalizat",
+      isPopular: false,
+      features: [
+        "Tot ce include Pachetul Power Team",
+        "Strategie personalizată de recrutare",
+        "Echipă dedicată de suport",
+        "Rapoarte și analize detaliate",
+        "Training și dezvoltare"
+      ],
+      icon: Target,
+      color: "from-purple-400 to-purple-600"
+    },
+    {
+      name: "Pachet Corporate Elite",
+      subtitle: "Soluția completă pentru companii mari",
+      employeeRange: "50+ angajați",
+      price: "Personalizat",
+      isPopular: false,
+      features: [
+        "Soluție completă personalizată",
+        "Echipă dedicată de specialiști",
+        "Suport executiv permanent",
+        "Servicii premium de relocare",
+        "Soluții la cheie de integrare"
+      ],
+      icon: Crown,
+      color: "from-indigo-400 to-indigo-600"
+    }
+  ];
+
+  // Pricing Section Component
+  const PricingCard = ({ plan }) => (
+    <div 
+      className={`relative group transition-all duration-300 hover:scale-105 hover:z-10`}
+      style={{ perspective: "1000px" }}
+    >
+      <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-500 group-hover:shadow-2xl border border-gray-100">
+        {plan.isPopular && (
+          <div className="absolute top-0 right-0">
+            <div className="relative">
+              <div className="absolute transform rotate-45 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-8 py-1 right-[-35px] top-[32px] shadow-lg">
+                Popular
+              </div>
+            </div>
+          </div>
+        )}
+        
+        <div className="p-8">
+          <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${plan.color} flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300`}>
+            <plan.icon className="h-8 w-8 text-white" />
+          </div>
+          
+          <h3 className="text-2xl font-bold text-gray-900 mb-2">{plan.name}</h3>
+          <p className="text-gray-600 mb-4">{plan.subtitle}</p>
+          <div className="flex items-center gap-2 mb-6">
+            <Users className="h-5 w-5 text-blue-600" />
+            <span className="font-medium text-gray-700">{plan.employeeRange}</span>
+          </div>
+          
+          <ul className="space-y-4 mb-8">
+            {plan.features.map((feature, index) => (
+              <li key={index} className="flex items-start gap-3">
+                <CheckCircle className="h-5 w-5 text-green-500 flex-shrink-0 mt-1" />
+                <span className="text-gray-600">{feature}</span>
+              </li>
+            ))}
+          </ul>
+          
+          <Button 
+            className={`w-full bg-gradient-to-r ${plan.color} text-white hover:shadow-lg transition-all duration-300 py-6`}
+            onClick={() => setShowLeadForm(true)}
+          >
+            Solicită Ofertă
+            <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+          </Button>
+        </div>
+      </div>
+    </div>
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -221,11 +369,21 @@ export default function TrueManPowerPremium() {
     }
   }
 
-  const handleFormSubmit = (e: FormEvent) => {
+  const handleFormSubmit = async (e: FormEvent) => {
     e.preventDefault()
+    
+    if (!formData.acceptTerms) {
+      alert("Vă rugăm să acceptați termenii și condițiile pentru a continua.")
+      return
+    }
+
     // Here you would typically send the form data to your backend
     console.log("Form submitted:", formData)
-    setShowLeadForm(false)
+    
+    // Show success message
+    setShowSuccessMessage(true)
+    setTimeout(() => setShowSuccessMessage(false), 5000)
+    
     // Reset form
     setFormData({
       companyName: "",
@@ -233,8 +391,14 @@ export default function TrueManPowerPremium() {
       industry: "",
       workersNeeded: "",
       phone: "",
-      email: ""
+      email: "",
+      message: "",
+      preferredContact: "email",
+      urgency: "normal",
+      acceptTerms: false
     })
+    
+    setShowLeadForm(false)
   }
 
   const handleIndustryClick = (industry: string) => {
@@ -242,6 +406,50 @@ export default function TrueManPowerPremium() {
     setFormData(prev => ({ ...prev, industry }))
     setShowLeadForm(true)
   }
+
+  // Industry Card Component
+  const IndustryCard = ({ industry, index }) => (
+    <div
+      className="group relative overflow-hidden"
+      style={{
+        animation: `fadeInUp 0.5s ease-out forwards ${index * 0.1}s`,
+        opacity: 0,
+        transform: 'translateY(20px)',
+      }}
+    >
+      <button
+        onClick={() => handleIndustryClick(industry.name)}
+        className="w-full h-full bg-white rounded-2xl shadow-lg border border-gray-100 p-8 transition-all duration-300 hover:shadow-2xl hover:scale-105 group"
+      >
+        <div className="relative">
+          {/* Background Pattern */}
+          <div className="absolute inset-0 opacity-0 group-hover:opacity-10 transition-opacity duration-300">
+            <div className="absolute inset-0 bg-gradient-to-br from-gray-900 to-gray-800"></div>
+          </div>
+
+          {/* Content */}
+          <div className="relative z-10">
+            <div className={`w-16 h-16 rounded-2xl bg-gradient-to-r ${industry.color} flex items-center justify-center mb-6 transform group-hover:scale-110 transition-transform duration-300`}>
+              {industry.icon}
+            </div>
+            
+            <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-blue-600 transition-colors">
+              {industry.name}
+            </h3>
+            
+            <p className="text-gray-600 text-sm leading-relaxed mb-6">
+              {industry.description}
+            </p>
+
+            <div className="flex items-center text-blue-600 font-medium">
+              <span className="mr-2">Află Mai Multe</span>
+              <ArrowRight className="h-4 w-4 transform group-hover:translate-x-1 transition-transform" />
+            </div>
+          </div>
+        </div>
+      </button>
+    </div>
+  );
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
@@ -536,341 +744,79 @@ export default function TrueManPowerPremium() {
       </section>
 
       {/* Pricing Section */}
-      <section id="pricing" className="py-24 bg-gray-50">
+      <section id="pricing" className="py-24 bg-gradient-to-br from-gray-50 to-blue-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              {language === "RO" 
-                ? "Soluții de Recrutare Adaptate Nevoilor Companiei Dumneavoastră" 
-                : "Recruitment Solutions Tailored to Your Company's Needs"}
+            <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg">
+              <DollarSign className="h-5 w-5 mr-2" />
+              Pachete de Recrutare Personalizate
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              Soluții Adaptate Nevoilor Companiei Tale
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {language === "RO" 
-                ? "Pachete transparente cu toate serviciile incluse, fără costuri ascunse" 
-                : "Transparent packages with all services included, no hidden costs"}
+              Alegerea pachetului potrivit este primul pas spre succesul recrutării internaționale. 
+              Fiecare pachet include asistență completă și suport dedicat.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
-            {/* Standard Plan */}
-            <Card className="relative bg-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">
-                  {t.pricingPlans.standard}
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  {language === "RO" 
-                    ? "Pentru companii mici" 
-                    : "For small companies"}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-4">
-                  {language === "RO" ? (
-                    <>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Recrutare pentru 1-5 muncitori
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Procesare completă acte
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Suport în limba română
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Ghid complet de recrutare
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Recruitment for 1-5 workers
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Complete document processing
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Romanian language support
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Complete recruitment guide
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  {t.cta.requestQuote}
-                </Button>
-              </CardFooter>
-            </Card>
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {pricingPlans.map((plan, index) => (
+              <PricingCard key={index} plan={plan} />
+            ))}
+          </div>
 
-            {/* Professional Plan */}
-            <Card className="relative bg-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">
-                  {t.pricingPlans.professional}
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  {language === "RO" 
-                    ? "Pentru companii în dezvoltare" 
-                    : "For growing companies"}
-                </CardDescription>
-                <div className="absolute top-4 right-4">
-                  <Badge className="bg-blue-100 text-blue-800">Popular</Badge>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-4">
-                  {language === "RO" ? (
-                    <>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Recrutare pentru 6-15 muncitori
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Procesare prioritară acte
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Suport dedicat 24/7
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Consultanță juridică inclusă
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Asistență la integrare
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Recruitment for 6-15 workers
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Priority document processing
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        24/7 dedicated support
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Legal consulting included
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Integration assistance
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  {t.cta.requestQuote}
-                </Button>
-              </CardFooter>
-            </Card>
-
-            {/* Enterprise Plan */}
-            <Card className="relative bg-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
-              <CardHeader>
-                <CardTitle className="text-2xl font-bold text-gray-900">
-                  {t.pricingPlans.enterprise}
-                </CardTitle>
-                <CardDescription className="text-gray-600">
-                  {language === "RO" 
-                    ? "Pentru companii mari" 
-                    : "For large companies"}
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <ul className="space-y-4">
-                  {language === "RO" ? (
-                    <>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Recrutare pentru 15+ muncitori
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Procesare ultra-rapidă
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Manager de cont dedicat
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Consultanță juridică premium
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Program complet de integrare
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Servicii personalizate
-                      </li>
-                    </>
-                  ) : (
-                    <>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Recruitment for 15+ workers
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Ultra-fast processing
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Dedicated account manager
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Premium legal consulting
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Complete integration program
-                      </li>
-                      <li className="flex items-center">
-                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                        Customized services
-                      </li>
-                    </>
-                  )}
-                </ul>
-              </CardContent>
-              <CardFooter>
-                <Button 
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  {t.cta.requestQuote}
-                </Button>
-              </CardFooter>
-            </Card>
+          <div className="mt-16 text-center">
+            <p className="text-gray-600 mb-8">
+              Nu găsești pachetul potrivit? Contactează-ne pentru o ofertă personalizată.
+            </p>
+            <Button
+              size="lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 text-xl font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
+              onClick={() => setShowLeadForm(true)}
+            >
+              Discută cu Experții Noștri
+              <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+            </Button>
           </div>
         </div>
       </section>
 
       {/* Industries Section */}
-      <section id="industries" className="py-24 bg-white">
+      <section id="industries" className="py-24 bg-gradient-to-br from-white to-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              {language === "RO" 
-                ? "Domenii de Activitate" 
-                : "Industries We Serve"}
+            <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg">
+              <Target className="h-5 w-5 mr-2" />
+              Domenii de Activitate
+            </Badge>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-gray-900">
+              Soluții pentru Fiecare Industrie
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              {language === "RO" 
-                ? "Recrutăm forță de muncă calificată și necalificată pentru următoarele sectoare:" 
-                : "We recruit skilled and unskilled workforce for the following sectors:"}
+              Recrutăm forță de muncă calificată și necalificată pentru toate sectoarele de activitate,
+              cu focus pe nevoile specifice ale fiecărei industrii.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
-            {[
-              {
-                icon: <HardHat className="h-12 w-12" />,
-                name: t.industries.construction,
-                description: language === "RO" 
-                  ? "Muncitori în construcții, dulgheri, fierari betoniști, zidari, finisori" 
-                  : "Construction workers, carpenters, iron workers, masons, finishers"
-              },
-              {
-                icon: <Factory className="h-12 w-12" />,
-                name: t.industries.manufacturing,
-                description: language === "RO"
-                  ? "Operatori producție, tehnicieni, muncitori calificați și necalificați"
-                  : "Production operators, technicians, skilled and unskilled workers"
-              },
-              {
-                icon: <UtensilsCrossed className="h-12 w-12" />,
-                name: t.industries.hospitality,
-                description: language === "RO"
-                  ? "Bucătari, ospătari, personal hotelier, personal curățenie"
-                  : "Chefs, waiters, hotel staff, cleaning staff"
-              },
-              {
-                icon: <Truck className="h-12 w-12" />,
-                name: t.industries.logistics,
-                description: language === "RO"
-                  ? "Șoferi, manipulanți marfă, operatori depozit"
-                  : "Drivers, cargo handlers, warehouse operators"
-              },
-              {
-                icon: <Sprout className="h-12 w-12" />,
-                name: t.industries.agriculture,
-                description: language === "RO"
-                  ? "Muncitori agricoli, operatori utilaje, personal sere"
-                  : "Agricultural workers, machinery operators, greenhouse staff"
-              },
-              {
-                icon: <Sparkles className="h-12 w-12" />,
-                name: t.industries.cleaning,
-                description: language === "RO"
-                  ? "Personal curățenie industrială și comercială"
-                  : "Industrial and commercial cleaning staff"
-              },
-              {
-                icon: <Home className="h-12 w-12" />,
-                name: t.industries.housekeeping,
-                description: language === "RO"
-                  ? "Personal curățenie și întreținere spații"
-                  : "Cleaning and maintenance staff"
-              }
-            ].map((industry, index) => (
-              <button
-                key={index}
-                onClick={() => handleIndustryClick(industry.name)}
-                className="group flex flex-col items-center p-8 bg-white rounded-2xl shadow-lg border border-gray-100 hover:shadow-xl hover:border-blue-100 transition-all duration-300 hover:scale-105"
-              >
-                <div className="mb-6 text-blue-600 group-hover:text-blue-700 transition-colors">
-                  {industry.icon}
-                </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-4">{industry.name}</h3>
-                <p className="text-sm text-gray-600 text-center">{industry.description}</p>
-              </button>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-7xl mx-auto">
+            {industries.map((industry, index) => (
+              <IndustryCard key={index} industry={industry} index={index} />
             ))}
           </div>
 
-          <div className="mt-16 text-center">
-            <Button
-              size="lg"
-              className="bg-blue-600 hover:bg-blue-700 text-white px-12 py-6 text-xl font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105"
-              onClick={() => scrollToSection("contact")}
-            >
-              {language === "RO" 
-                ? "Solicită o Ofertă Personalizată" 
-                : "Request a Custom Quote"}
-              <ArrowRight className="ml-3 h-6 w-6" />
-            </Button>
-          </div>
+          <style jsx global>{`
+            @keyframes fadeInUp {
+              from {
+                opacity: 0;
+                transform: translateY(20px);
+              }
+              to {
+                opacity: 1;
+                transform: translateY(0);
+              }
+            }
+          `}</style>
         </div>
       </section>
 
@@ -1604,122 +1550,208 @@ export default function TrueManPowerPremium() {
 
       {/* Lead Form Dialog */}
       <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
-        <DialogContent className="sm:max-w-[500px]">
+        <DialogContent className="sm:max-w-[600px]">
           <DialogHeader>
             <DialogTitle className="text-2xl font-bold">
-              {language === "RO" 
-                ? "Solicitare Ofertă Personalizată" 
-                : "Request Custom Quote"}
+              Solicită Ofertă Personalizată
             </DialogTitle>
             <DialogDescription>
-              {language === "RO"
-                ? "Completați formularul și veți primi o ofertă adaptată nevoilor companiei dumneavoastră în maxim 24 de ore."
-                : "Fill out the form and you'll receive a quote tailored to your company's needs within 24 hours."}
+              Completați formularul și veți primi o ofertă adaptată nevoilor companiei dumneavoastră în maxim 24 de ore.
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleFormSubmit} className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="companyName">
-                {t.formLabels.companyName}
-              </Label>
-              <Input
-                id="companyName"
-                type="text"
-                placeholder={language === "RO" ? "Numele companiei dumneavoastră" : "Your company name"}
-                value={formData.companyName}
-                onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
-                required
-              />
+          
+          <form onSubmit={handleFormSubmit} className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="companyName">
+                  Numele Companiei *
+                </Label>
+                <Input
+                  id="companyName"
+                  type="text"
+                  placeholder="Compania dumneavoastră"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
+                  required
+                  className="transition-all duration-300 focus:scale-105"
+                />
+              </div>
+              
+              <div className="space-y-2">
+                <Label htmlFor="contactName">
+                  Persoana de Contact *
+                </Label>
+                <Input
+                  id="contactName"
+                  type="text"
+                  placeholder="Numele și prenumele"
+                  value={formData.contactName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, contactName: e.target.value }))}
+                  required
+                  className="transition-all duration-300 focus:scale-105"
+                />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="contactName">
-                {t.formLabels.contactName}
-              </Label>
-              <Input
-                id="contactName"
-                type="text"
-                placeholder={language === "RO" ? "Numele persoanei de contact" : "Contact person name"}
-                value={formData.contactName}
-                onChange={(e) => setFormData(prev => ({ ...prev, contactName: e.target.value }))}
-                required
-              />
-            </div>
+
             <div className="space-y-2">
               <Label htmlFor="industry">
-                {t.formLabels.industry}
+                Domeniul de Activitate *
               </Label>
               <Select
                 value={formData.industry}
                 onValueChange={(value) => setFormData(prev => ({ ...prev, industry: value }))}
               >
-                <SelectTrigger>
-                  <SelectValue placeholder={language === "RO" ? "Selectați domeniul" : "Select industry"} />
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Selectați domeniul" />
                 </SelectTrigger>
                 <SelectContent>
-                  {language === "RO" ? (
-                    <>
-                      <SelectItem value="constructii">Construcții</SelectItem>
-                      <SelectItem value="productie">Producție</SelectItem>
-                      <SelectItem value="horeca">HORECA</SelectItem>
-                      <SelectItem value="agricultura">Agricultură</SelectItem>
-                      <SelectItem value="transport">Transport</SelectItem>
-                      <SelectItem value="altele">Alte Domenii</SelectItem>
-                    </>
-                  ) : (
-                    <>
-                      <SelectItem value="constructii">Construction</SelectItem>
-                      <SelectItem value="productie">Manufacturing</SelectItem>
-                      <SelectItem value="horeca">HORECA</SelectItem>
-                      <SelectItem value="agricultura">Agriculture</SelectItem>
-                      <SelectItem value="transport">Transportation</SelectItem>
-                      <SelectItem value="altele">Other Industries</SelectItem>
-                    </>
-                  )}
+                  <SelectItem value="constructii">Construcții</SelectItem>
+                  <SelectItem value="productie">Producție</SelectItem>
+                  <SelectItem value="horeca">HORECA</SelectItem>
+                  <SelectItem value="logistica">Logistică</SelectItem>
+                  <SelectItem value="agricultura">Agricultură</SelectItem>
+                  <SelectItem value="curatenie">Curățenie</SelectItem>
+                  <SelectItem value="housekeeping">Housekeeping</SelectItem>
+                  <SelectItem value="altele">Alte Domenii</SelectItem>
                 </SelectContent>
               </Select>
             </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="workersNeeded">
+                  Număr Muncitori Necesari *
+                </Label>
+                <Input
+                  id="workersNeeded"
+                  type="number"
+                  min="1"
+                  placeholder="Ex: 10"
+                  value={formData.workersNeeded}
+                  onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
+                  required
+                  className="transition-all duration-300 focus:scale-105"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="urgency">
+                  Urgența Recrutării
+                </Label>
+                <Select
+                  value={formData.urgency}
+                  onValueChange={(value) => setFormData(prev => ({ ...prev, urgency: value }))}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Selectați urgența" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="urgent">Urgentă (1-2 săptămâni)</SelectItem>
+                    <SelectItem value="normal">Normală (2-4 săptămâni)</SelectItem>
+                    <SelectItem value="planificat">Planificată (1-3 luni)</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="space-y-2">
+                <Label htmlFor="phone">
+                  Telefon *
+                </Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  placeholder="+40 7xx xxx xxx"
+                  value={formData.phone}
+                  onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                  required
+                  className="transition-all duration-300 focus:scale-105"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="email">
+                  Email *
+                </Label>
+                <Input
+                  id="email"
+                  type="email"
+                  placeholder="email@companie.ro"
+                  value={formData.email}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  required
+                  className="transition-all duration-300 focus:scale-105"
+                />
+              </div>
+            </div>
+
             <div className="space-y-2">
-              <Label htmlFor="workersNeeded">
-                {t.formLabels.workersNeeded}
+              <Label htmlFor="message">
+                Mesaj (Opțional)
               </Label>
-              <Input
-                id="workersNeeded"
-                type="number"
-                min="1"
-                placeholder={language === "RO" ? "Număr de muncitori necesari" : "Number of workers needed"}
-                value={formData.workersNeeded}
-                onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
-                required
+              <Textarea
+                id="message"
+                placeholder="Detalii suplimentare despre necesitățile companiei dumneavoastră..."
+                value={formData.message}
+                onChange={(e) => setFormData(prev => ({ ...prev, message: e.target.value }))}
+                className="min-h-[100px] transition-all duration-300 focus:scale-105"
               />
             </div>
+
             <div className="space-y-2">
-              <Label htmlFor="phone">
-                {t.formLabels.phone}
+              <Label>
+                Metoda Preferată de Contact
               </Label>
-              <Input
-                id="phone"
-                type="tel"
-                placeholder={language === "RO" ? "Număr de telefon" : "Phone number"}
-                value={formData.phone}
-                onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+              <div className="flex gap-4">
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="preferredContact"
+                    value="email"
+                    checked={formData.preferredContact === "email"}
+                    onChange={(e) => setFormData(prev => ({ ...prev, preferredContact: e.target.value }))}
+                    className="text-blue-600"
+                  />
+                  <span>Email</span>
+                </label>
+                <label className="flex items-center space-x-2">
+                  <input
+                    type="radio"
+                    name="preferredContact"
+                    value="phone"
+                    checked={formData.preferredContact === "phone"}
+                    onChange={(e) => setFormData(prev => ({ ...prev, preferredContact: e.target.value }))}
+                    className="text-blue-600"
+                  />
+                  <span>Telefon</span>
+                </label>
+              </div>
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="terms"
+                checked={formData.acceptTerms}
+                onCheckedChange={(checked) => 
+                  setFormData(prev => ({ ...prev, acceptTerms: checked as boolean }))
+                }
                 required
               />
+              <label
+                htmlFor="terms"
+                className="text-sm text-gray-600 cursor-pointer"
+              >
+                Sunt de acord cu <a href="#" className="text-blue-600 hover:underline">termenii și condițiile</a> și <a href="#" className="text-blue-600 hover:underline">politica de confidențialitate</a>
+              </label>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="email">
-                {t.formLabels.email}
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                placeholder={language === "RO" ? "Adresa de email" : "Email address"}
-                value={formData.email}
-                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                required
-              />
-            </div>
-            <Button type="submit" className="w-full">
-              {language === "RO" ? "Trimite Solicitarea" : "Submit Request"}
+
+            <Button 
+              type="submit" 
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-6 text-lg font-semibold hover:shadow-lg transition-all duration-300 hover:scale-105"
+            >
+              Trimite Solicitarea
+              <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
             </Button>
           </form>
         </DialogContent>
