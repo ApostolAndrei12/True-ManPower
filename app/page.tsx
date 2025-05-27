@@ -67,7 +67,7 @@ interface FormData {
 }
 
 interface Industry {
-  icon: any // Using any here since we can't properly type Lucide icons
+  icon: any
   name: string
 }
 
