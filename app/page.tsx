@@ -127,20 +127,39 @@ export default function TrueManPowerPremium() {
       about: "Despre Noi",
       industries: "Domenii de Activitate",
       pricing: "Pachete și Prețuri",
-      process: "Proces",
+      process: "Procesul de Recrutare",
       contact: "Contact",
-      heroTitle: "Recrutăm muncitori calificați din țări non-UE pentru companiile din România",
-      heroSubtitle: "Soluții complete de recrutare pentru companii românești",
-      heroDescription: "Oferim servicii profesionale de recrutare a forței de muncă din țări non-UE, cu focus pe domeniile: construcții, producție, HORECA, agricultură și transport. Proces simplu, prețuri transparente, suport legal complet.",
+      heroTitle: "Soluția completă de recrutare a forței de muncă din țări non-UE pentru companiile românești",
+      heroSubtitle: "Simplifică procesul de recrutare internațională pentru afacerea ta",
+      heroDescription: "Oferim servicii complete de recrutare a forței de muncă din țări non-UE, specializați în domeniile: construcții, producție, HORECA, agricultură și transport. Gestionăm întregul proces legal, de la selecție până la obținerea permisului de muncă, cu prețuri transparente și fără costuri ascunse.",
       getStarted: "Solicită o Ofertă",
       learnMore: "Află Mai Multe",
       downloadGuide: "Descarcă Ghidul de Recrutare",
       seeOurPrices: "Vezi Pachetele",
       freeConsultation: "Consultație Gratuită",
       pricingPlans: {
-        standard: "Recrutare de bază – 1 muncitor/lună",
-        premium: "Recrutare accelerată – până la 5 muncitori",
-        enterprise: "Personalizat pentru nevoile firmei tale"
+        standard: "Pachet Standard – 1-5 muncitori",
+        premium: "Pachet Business – 6-15 muncitori",
+        enterprise: "Pachet Enterprise – Peste 15 muncitori"
+      },
+      stats: {
+        compliance: "Conformitate Legală",
+        support: "Asistență Dedicată",
+        processing: "Procesare Rapidă",
+        fees: "Fără Costuri Ascunse"
+      },
+      formLabels: {
+        companyName: "Numele Companiei",
+        contactName: "Persoană de Contact",
+        industry: "Domeniu de Activitate",
+        workersNeeded: "Număr de Muncitori Necesari",
+        phone: "Telefon",
+        email: "Email"
+      },
+      cta: {
+        requestQuote: "Solicită o Ofertă Personalizată",
+        downloadGuide: "Descarcă Ghidul Complet de Recrutare",
+        schedule: "Programează o Consultație"
       }
     },
     EN: {
@@ -397,19 +416,19 @@ export default function TrueManPowerPremium() {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 max-w-5xl mx-auto">
               <div className="text-center bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100">
                 <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">100%</div>
-                <div className="text-sm font-medium text-gray-600">Legal Compliance</div>
+                <div className="text-sm font-medium text-gray-600">{t.stats.compliance}</div>
               </div>
               <div className="text-center bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100">
                 <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">24/7</div>
-                <div className="text-sm font-medium text-gray-600">Support Available</div>
+                <div className="text-sm font-medium text-gray-600">{t.stats.support}</div>
               </div>
               <div className="text-center bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100">
-                <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">Fast</div>
-                <div className="text-sm font-medium text-gray-600">Processing Time</div>
+                <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">45</div>
+                <div className="text-sm font-medium text-gray-600">{t.stats.processing}</div>
               </div>
               <div className="text-center bg-white/90 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-gray-100">
-                <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">Zero</div>
-                <div className="text-sm font-medium text-gray-600">Hidden Fees</div>
+                <div className="text-4xl md:text-5xl font-bold text-blue-600 mb-3">0</div>
+                <div className="text-sm font-medium text-gray-600">{t.stats.fees}</div>
               </div>
             </div>
           </div>
@@ -423,13 +442,13 @@ export default function TrueManPowerPremium() {
             <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl shadow-2xl p-8 md:p-12">
               <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
                 {language === "RO" 
-                  ? "Spune-ne de câți muncitori ai nevoie" 
-                  : "Tell us how many workers you need"}
+                  ? "Spuneți-ne de câți muncitori are nevoie compania dumneavoastră" 
+                  : "Tell us how many workers your company needs"}
               </h3>
               <form onSubmit={handleFormSubmit} className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
                 <Input
                   type="text"
-                  placeholder={language === "RO" ? "Nume firmă" : "Company name"}
+                  placeholder={t.formLabels.companyName}
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/70"
                   value={formData.companyName}
                   onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
@@ -438,7 +457,7 @@ export default function TrueManPowerPremium() {
                 <Input
                   type="number"
                   min="1"
-                  placeholder={language === "RO" ? "Număr muncitori" : "Number of workers"}
+                  placeholder={t.formLabels.workersNeeded}
                   className="bg-white/10 border-white/20 text-white placeholder:text-white/70"
                   value={formData.workersNeeded}
                   onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
@@ -448,7 +467,7 @@ export default function TrueManPowerPremium() {
                   type="submit"
                   className="w-full bg-white hover:bg-blue-50 text-blue-600 font-semibold"
                 >
-                  {language === "RO" ? "Solicită o Ofertă" : "Request a Quote"}
+                  {t.cta.requestQuote}
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
               </form>
@@ -457,17 +476,19 @@ export default function TrueManPowerPremium() {
         </div>
       </section>
 
-      {/* Pricing Section - Moved up */}
+      {/* Pricing Section */}
       <section id="pricing" className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl font-bold text-gray-900 mb-4">
-              {language === "RO" ? "Pachete de Recrutare Personalizate" : "Customized Recruitment Packages"}
+              {language === "RO" 
+                ? "Soluții de Recrutare Adaptate Nevoilor Companiei Dumneavoastră" 
+                : "Recruitment Solutions Tailored to Your Company's Needs"}
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               {language === "RO" 
-                ? "Alegeti pachetul potrivit pentru nevoile companiei dumneavoastră" 
-                : "Choose the right package for your company's needs"}
+                ? "Pachete transparente cu toate serviciile incluse, fără costuri ascunse" 
+                : "Transparent packages with all services included, no hidden costs"}
             </p>
           </div>
 
@@ -480,47 +501,71 @@ export default function TrueManPowerPremium() {
                 </CardTitle>
                 <CardDescription className="text-gray-600">
                   {language === "RO" 
-                    ? "Ideal pentru companii mici" 
-                    : "Perfect for small companies"}
+                    ? "Pentru companii mici și mijlocii" 
+                    : "For small and medium companies"}
                 </CardDescription>
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-blue-100 text-blue-800">Popular</Badge>
+                </div>
               </CardHeader>
               <CardContent>
                 <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    {language === "RO" 
-                      ? "Recrutare pentru 1 poziție" 
-                      : "Recruitment for 1 position"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    {language === "RO" 
-                      ? "Suport documentație completă" 
-                      : "Complete documentation support"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    {language === "RO" 
-                      ? "Verificare candidați" 
-                      : "Candidate verification"}
-                  </li>
+                  {language === "RO" ? (
+                    <>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Recrutare pentru 1-5 poziții
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Procesare completă acte
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Verificare candidați
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Suport dedicat
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Recruitment for 1-5 positions
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Complete documentation processing
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Candidate verification
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Dedicated support
+                      </li>
+                    </>
+                  )}
                 </ul>
                 <Button 
                   className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => scrollToSection("contact")}
+                  onClick={() => setShowLeadForm(true)}
                 >
-                  {language === "RO" ? "Solicită Ofertă" : "Request Quote"}
+                  {t.cta.requestQuote}
                 </Button>
               </CardContent>
             </Card>
 
             {/* Premium Plan */}
-            <Card className="relative bg-blue-600 text-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
+            <Card className="relative bg-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
               <CardHeader>
-                <CardTitle className="text-2xl font-bold">
+                <CardTitle className="text-2xl font-bold text-gray-900">
                   {t.pricingPlans.premium}
                 </CardTitle>
-                <CardDescription className="text-blue-100">
+                <CardDescription className="text-gray-600">
                   {language === "RO" 
                     ? "Pentru companii în dezvoltare" 
                     : "For growing companies"}
@@ -528,36 +573,59 @@ export default function TrueManPowerPremium() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-white mr-2" />
-                    {language === "RO" 
-                      ? "Recrutare pentru până la 5 poziții" 
-                      : "Recruitment for up to 5 positions"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-white mr-2" />
-                    {language === "RO" 
-                      ? "Procesare accelerată" 
-                      : "Accelerated processing"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-white mr-2" />
-                    {language === "RO" 
-                      ? "Manager de cont dedicat" 
-                      : "Dedicated account manager"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-white mr-2" />
-                    {language === "RO" 
-                      ? "Suport prioritar" 
-                      : "Priority support"}
-                  </li>
+                  {language === "RO" ? (
+                    <>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Recrutare pentru 6-15 poziții
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Procesare prioritară acte
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Verificare extinsă candidați
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Manager de cont dedicat
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Suport juridic extins
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Recruitment for 6-15 positions
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Priority documentation processing
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Extended candidate verification
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Dedicated account manager
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Extended legal support
+                      </li>
+                    </>
+                  )}
                 </ul>
                 <Button 
-                  className="w-full mt-8 bg-white text-blue-600 hover:bg-blue-50"
-                  onClick={() => scrollToSection("contact")}
+                  className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => setShowLeadForm(true)}
                 >
-                  {language === "RO" ? "Solicită Ofertă" : "Request Quote"}
+                  {t.cta.requestQuote}
                 </Button>
               </CardContent>
             </Card>
@@ -576,36 +644,67 @@ export default function TrueManPowerPremium() {
               </CardHeader>
               <CardContent>
                 <ul className="space-y-4">
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    {language === "RO" 
-                      ? "Număr nelimitat de poziții" 
-                      : "Unlimited positions"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    {language === "RO" 
-                      ? "Soluție personalizată" 
-                      : "Customized solution"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    {language === "RO" 
-                      ? "Suport juridic dedicat" 
-                      : "Dedicated legal support"}
-                  </li>
-                  <li className="flex items-center">
-                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
-                    {language === "RO" 
-                      ? "Servicii premium complete" 
-                      : "Complete premium services"}
-                  </li>
+                  {language === "RO" ? (
+                    <>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Recrutare pentru peste 15 poziții
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Procesare ultra-rapidă acte
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Verificare completă candidați
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Echipă dedicată de suport
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Consultanță juridică completă
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Servicii personalizate
+                      </li>
+                    </>
+                  ) : (
+                    <>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Recruitment for 15+ positions
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Ultra-fast documentation processing
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Complete candidate verification
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Dedicated support team
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Complete legal consulting
+                      </li>
+                      <li className="flex items-center">
+                        <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                        Customized services
+                      </li>
+                    </>
+                  )}
                 </ul>
                 <Button 
                   className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white"
-                  onClick={() => scrollToSection("contact")}
+                  onClick={() => setShowLeadForm(true)}
                 >
-                  {language === "RO" ? "Contactează-ne" : "Contact Us"}
+                  {t.cta.requestQuote}
                 </Button>
               </CardContent>
             </Card>
@@ -656,74 +755,83 @@ export default function TrueManPowerPremium() {
         </div>
       </section>
 
-      {/* About Section - Premium */}
-      <section id="about" className="py-20 bg-gray-50">
+      {/* About Section */}
+      <section id="about" className="py-24 bg-white">
         <div className="container mx-auto px-6">
-          <div className="grid lg:grid-cols-2 gap-16 items-center max-w-7xl mx-auto">
-            <div>
-              <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg">
-                <Heart className="h-5 w-5 mr-2" />
-                About True ManPower® S.R.L.
-              </Badge>
-              <h2 className="text-4xl md:text-5xl font-bold mb-8 text-gray-900">
-                Your Trusted International Recruitment Partner
-              </h2>
-              <p className="text-xl text-gray-700 mb-8 leading-relaxed">
-                We specialize in connecting skilled professionals from Asia and Africa with Romanian companies that
-                value talent, dedication, and diversity. Our mission is to make international recruitment simple, legal,
-                and successful for everyone.
+          <div className="max-w-3xl mx-auto text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 mb-6">
+              {language === "RO" 
+                ? "Expertul Dumneavoastră în Recrutare Internațională" 
+                : "Your International Recruitment Expert"}
+            </h2>
+            <p className="text-xl text-gray-600 leading-relaxed">
+              {language === "RO"
+                ? "Ne specializăm în conectarea companiilor românești cu muncitori calificați din țări non-UE. Misiunea noastră este să simplificăm procesul de recrutare internațională și să oferim soluții complete, legale și eficiente pentru afacerea dumneavoastră."
+                : "We specialize in connecting Romanian companies with skilled workers from non-EU countries. Our mission is to simplify the international recruitment process and provide complete, legal, and efficient solutions for your business."}
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+            <div className="text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <ShieldCheck className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                {language === "RO" 
+                  ? "100% Conformitate Legală" 
+                  : "100% Legal Compliance"}
+              </h3>
+              <p className="text-gray-600">
+                {language === "RO"
+                  ? "Gestionăm toate aspectele legale și documentația necesară pentru angajarea legală a muncitorilor străini."
+                  : "We handle all legal aspects and documentation required for the legal employment of foreign workers."}
               </p>
-
-              <div className="grid md:grid-cols-3 gap-6 mb-8">
-                <div className="text-center p-6 bg-white rounded-xl shadow-lg">
-                  <Shield className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                  <h4 className="font-bold text-gray-900 mb-2">100% Legal</h4>
-                  <p className="text-sm text-gray-600">Full compliance with all regulations</p>
-                </div>
-                <div className="text-center p-6 bg-white rounded-xl shadow-lg">
-                  <Eye className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                  <h4 className="font-bold text-gray-900 mb-2">Transparent</h4>
-                  <p className="text-sm text-gray-600">Clear process and honest pricing</p>
-                </div>
-                <div className="text-center p-6 bg-white rounded-xl shadow-lg">
-                  <Handshake className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-                  <h4 className="font-bold text-gray-900 mb-2">Trusted</h4>
-                  <p className="text-sm text-gray-600">Reliable service and support</p>
-                </div>
-              </div>
-
-              <Button
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
-                onClick={() => scrollToSection("contact")}
-              >
-                {t.learnMore}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
             </div>
 
-            <div className="relative">
-              <div className="grid grid-cols-2 gap-6">
-                <Image
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                  alt="Romanian construction site"
-                  width={300}
-                  height={400}
-                  className="rounded-2xl shadow-2xl"
-                />
-                <Image
-                  src="https://images.unsplash.com/photo-1581094794329-c8112a89af12?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80"
-                  alt="Professional workers"
-                  width={300}
-                  height={400}
-                  className="rounded-2xl shadow-2xl mt-8"
-                />
+            <div className="text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Target className="h-8 w-8 text-blue-600" />
               </div>
-              <div className="absolute -bottom-6 -right-6 bg-blue-600 text-white p-8 rounded-2xl shadow-2xl">
-                <Award className="h-10 w-10 mb-3" />
-                <div className="text-lg font-bold">Certified</div>
-                <div className="text-sm opacity-90">Recruitment Agency</div>
-              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                {language === "RO" 
+                  ? "Selecție Riguroasă" 
+                  : "Rigorous Selection"}
+              </h3>
+              <p className="text-gray-600">
+                {language === "RO"
+                  ? "Verificăm și evaluăm cu atenție fiecare candidat pentru a ne asigura că îndeplinește cerințele specifice ale companiei dumneavoastră."
+                  : "We carefully verify and evaluate each candidate to ensure they meet your company's specific requirements."}
+              </p>
             </div>
+
+            <div className="text-center">
+              <div className="bg-blue-100 w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-6">
+                <Headphones className="h-8 w-8 text-blue-600" />
+              </div>
+              <h3 className="text-xl font-bold text-gray-900 mb-4">
+                {language === "RO" 
+                  ? "Suport Complet" 
+                  : "Complete Support"}
+              </h3>
+              <p className="text-gray-600">
+                {language === "RO"
+                  ? "Vă oferim asistență dedicată pe tot parcursul procesului, de la selecție până la integrarea muncitorilor în compania dumneavoastră."
+                  : "We provide dedicated assistance throughout the entire process, from selection to worker integration in your company."}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-16 text-center">
+            <Button
+              size="lg"
+              className="bg-blue-600 hover:bg-blue-700 text-white px-8"
+              onClick={() => setShowLeadForm(true)}
+            >
+              {language === "RO" 
+                ? "Discută cu Experții Noștri" 
+                : "Talk to Our Experts"}
+              <ArrowRight className="ml-2 h-5 w-5" />
+            </Button>
           </div>
         </div>
       </section>
@@ -1228,79 +1336,120 @@ export default function TrueManPowerPremium() {
       <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
         <DialogContent className="sm:max-w-[500px]">
           <DialogHeader>
-            <DialogTitle>
+            <DialogTitle className="text-2xl font-bold">
               {language === "RO" 
-                ? `Solicitare Personal - ${selectedIndustry}` 
-                : `Personnel Request - ${selectedIndustry}`}
+                ? "Solicitare Ofertă Personalizată" 
+                : "Request Custom Quote"}
             </DialogTitle>
             <DialogDescription>
               {language === "RO"
-                ? "Completați formularul și vă vom contacta în cel mai scurt timp"
-                : "Fill out the form and we will contact you shortly"}
+                ? "Completați formularul și veți primi o ofertă adaptată nevoilor companiei dumneavoastră în maxim 24 de ore."
+                : "Fill out the form and you'll receive a quote tailored to your company's needs within 24 hours."}
             </DialogDescription>
           </DialogHeader>
-          <form onSubmit={handleFormSubmit} className="space-y-6">
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="companyName">
-                  {language === "RO" ? "Nume firmă" : "Company name"}
-                </Label>
-                <Input
-                  id="companyName"
-                  value={formData.companyName}
-                  onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="contactName">
-                  {language === "RO" ? "Nume contact" : "Contact name"}
-                </Label>
-                <Input
-                  id="contactName"
-                  value={formData.contactName}
-                  onChange={(e) => setFormData(prev => ({ ...prev, contactName: e.target.value }))}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="workersNeeded">
-                  {language === "RO" ? "Număr muncitori necesari" : "Number of workers needed"}
-                </Label>
-                <Input
-                  id="workersNeeded"
-                  type="number"
-                  min="1"
-                  value={formData.workersNeeded}
-                  onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="phone">
-                  {language === "RO" ? "Telefon" : "Phone"}
-                </Label>
-                <Input
-                  id="phone"
-                  type="tel"
-                  value={formData.phone}
-                  onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
-                  required
-                />
-              </div>
-              <div>
-                <Label htmlFor="email">Email</Label>
-                <Input
-                  id="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
-                  required
-                />
-              </div>
+          <form onSubmit={handleFormSubmit} className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="companyName">
+                {t.formLabels.companyName}
+              </Label>
+              <Input
+                id="companyName"
+                type="text"
+                placeholder={language === "RO" ? "Numele companiei dumneavoastră" : "Your company name"}
+                value={formData.companyName}
+                onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="contactName">
+                {t.formLabels.contactName}
+              </Label>
+              <Input
+                id="contactName"
+                type="text"
+                placeholder={language === "RO" ? "Numele persoanei de contact" : "Contact person name"}
+                value={formData.contactName}
+                onChange={(e) => setFormData(prev => ({ ...prev, contactName: e.target.value }))}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="industry">
+                {t.formLabels.industry}
+              </Label>
+              <Select
+                value={formData.industry}
+                onValueChange={(value) => setFormData(prev => ({ ...prev, industry: value }))}
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder={language === "RO" ? "Selectați domeniul" : "Select industry"} />
+                </SelectTrigger>
+                <SelectContent>
+                  {language === "RO" ? (
+                    <>
+                      <SelectItem value="constructii">Construcții</SelectItem>
+                      <SelectItem value="productie">Producție</SelectItem>
+                      <SelectItem value="horeca">HORECA</SelectItem>
+                      <SelectItem value="agricultura">Agricultură</SelectItem>
+                      <SelectItem value="transport">Transport</SelectItem>
+                      <SelectItem value="altele">Alte Domenii</SelectItem>
+                    </>
+                  ) : (
+                    <>
+                      <SelectItem value="constructii">Construction</SelectItem>
+                      <SelectItem value="productie">Manufacturing</SelectItem>
+                      <SelectItem value="horeca">HORECA</SelectItem>
+                      <SelectItem value="agricultura">Agriculture</SelectItem>
+                      <SelectItem value="transport">Transportation</SelectItem>
+                      <SelectItem value="altele">Other Industries</SelectItem>
+                    </>
+                  )}
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="workersNeeded">
+                {t.formLabels.workersNeeded}
+              </Label>
+              <Input
+                id="workersNeeded"
+                type="number"
+                min="1"
+                placeholder={language === "RO" ? "Număr de muncitori necesari" : "Number of workers needed"}
+                value={formData.workersNeeded}
+                onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="phone">
+                {t.formLabels.phone}
+              </Label>
+              <Input
+                id="phone"
+                type="tel"
+                placeholder={language === "RO" ? "Număr de telefon" : "Phone number"}
+                value={formData.phone}
+                onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                required
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="email">
+                {t.formLabels.email}
+              </Label>
+              <Input
+                id="email"
+                type="email"
+                placeholder={language === "RO" ? "Adresa de email" : "Email address"}
+                value={formData.email}
+                onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                required
+              />
             </div>
             <Button type="submit" className="w-full">
-              {language === "RO" ? "Trimite solicitarea" : "Submit request"}
+              {language === "RO" ? "Trimite Solicitarea" : "Submit Request"}
             </Button>
           </form>
         </DialogContent>
