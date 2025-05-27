@@ -13,6 +13,7 @@ import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigge
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Phone,
   Mail,
@@ -46,7 +47,7 @@ import {
   Star,
   Sparkles,
   ShieldCheck,
-  WashingMachineIcon as Cleaning,
+  WashingMachine as Cleaning,
   UtensilsCrossed,
   Sprout,
   Home,
@@ -58,9 +59,8 @@ import {
   Rocket,
   Crown,
   Briefcase,
-  Checkbox,
   ChevronLeft,
-  ChevronRight,
+  ChevronRight
 } from "lucide-react"
 
 interface FormData {
@@ -618,58 +618,49 @@ export default function TrueManPowerPremium() {
 
   // Team Member Card Component
   const TeamMemberCard = ({ member, language }) => (
-    <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-gray-900 rounded-3xl overflow-hidden p-8 md:p-12 lg:p-16">
+    <div className="bg-gradient-to-br from-blue-900 via-gray-900 to-gray-900 rounded-3xl overflow-hidden p-4 sm:p-8 md:p-12">
       <div className="grid md:grid-cols-12 gap-8 items-center">
-        {/* Member Image Column */}
         <div className="md:col-span-4 text-center md:text-left">
           <div className="relative inline-block">
-            {/* Decorative Elements */}
-            <div className="absolute -top-4 -left-4 w-24 h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
-            <div className="absolute -bottom-4 -right-4 w-24 h-24 bg-blue-600/10 rounded-full blur-2xl"></div>
+            <div className="absolute -top-4 -left-4 w-16 sm:w-24 h-16 sm:h-24 bg-blue-500/10 rounded-full blur-2xl"></div>
+            <div className="absolute -bottom-4 -right-4 w-16 sm:w-24 h-16 sm:h-24 bg-blue-600/10 rounded-full blur-2xl"></div>
             
-            {/* Member Image Container */}
-            <div className="relative w-48 h-48 mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 p-1">
+            <div className="relative w-32 sm:w-48 h-32 sm:h-48 mx-auto rounded-2xl overflow-hidden bg-gradient-to-br from-blue-500 to-blue-700 p-1">
               <div className="w-full h-full rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 flex items-center justify-center">
-                <Users className="h-20 w-20 text-blue-400" />
+                <Users className="h-16 w-16 sm:h-20 sm:w-20 text-blue-400" />
               </div>
             </div>
           </div>
 
-          {/* Member Name and Title */}
-          <div className="mt-6 space-y-2">
-            <h3 className="text-2xl font-bold text-white">{member.name}</h3>
-            <p className="text-blue-400 font-semibold">
+          <div className="mt-4 sm:mt-6 space-y-2">
+            <h3 className="text-xl sm:text-2xl font-bold text-white">{member.name}</h3>
+            <p className="text-blue-400 font-semibold text-sm sm:text-base">
               {member.role[language]}
             </p>
           </div>
 
-          {/* Stats */}
-          <div className="mt-6 flex flex-wrap justify-center md:justify-start gap-4">
+          <div className="mt-4 sm:mt-6 flex flex-wrap justify-center md:justify-start gap-2 sm:gap-4">
             {member.stats[language].map((stat, index) => (
-              <div key={index} className="bg-blue-900/30 backdrop-blur-sm px-4 py-2 rounded-xl">
-                <div className="text-2xl font-bold text-white">{stat.value}</div>
-                <div className="text-sm text-gray-400">{stat.label}</div>
+              <div key={index} className="bg-blue-900/30 backdrop-blur-sm px-3 sm:px-4 py-2 rounded-xl">
+                <div className="text-xl sm:text-2xl font-bold text-white">{stat.value}</div>
+                <div className="text-xs sm:text-sm text-gray-400">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Message Column */}
-        <div className="md:col-span-8 space-y-8">
-          <div className="space-y-6">
-            <blockquote className="text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
-              {member.quote[language]}
-            </blockquote>
+        <div className="md:col-span-8 space-y-6 sm:space-y-8 mt-6 md:mt-0">
+          <blockquote className="text-lg sm:text-xl md:text-2xl text-gray-300 font-light leading-relaxed">
+            {member.quote[language]}
+          </blockquote>
 
-            {/* Achievements */}
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 pt-6">
-              {member.achievements[language].map((achievement, index) => (
-                <div key={index} className="flex items-center gap-3">
-                  <Award className="h-5 w-5 text-blue-400" />
-                  <span className="text-gray-300">{achievement}</span>
-                </div>
-              ))}
-            </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 pt-4 sm:pt-6">
+            {member.achievements[language].map((achievement, index) => (
+              <div key={index} className="flex items-center gap-2 sm:gap-3">
+                <Award className="h-4 w-4 sm:h-5 sm:w-5 text-blue-400" />
+                <span className="text-sm sm:text-base text-gray-300">{achievement}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
@@ -696,8 +687,7 @@ export default function TrueManPowerPremium() {
           </div>
         </div>
 
-        {/* Navigation Arrows */}
-        <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between pointer-events-none">
+        <div className="absolute top-1/2 -translate-y-1/2 w-full flex justify-between pointer-events-none px-4">
           <button
             onClick={prevMember}
             className="pointer-events-auto transform -translate-x-4 w-12 h-12 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center text-white hover:bg-white/20 transition-all duration-300"
@@ -712,7 +702,6 @@ export default function TrueManPowerPremium() {
           </button>
         </div>
 
-        {/* Dots Indicator */}
         <div className="flex justify-center mt-8 space-x-2">
           {teamMembers.map((_, index) => (
             <button
@@ -858,31 +847,79 @@ export default function TrueManPowerPremium() {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden bg-white border-t border-gray-200 py-6 rounded-b-lg shadow-lg">
-              <nav className="flex flex-col space-y-4">
-                {[
-                  { key: "home", label: language === "RO" ? "Acasă" : "Home" },
-                  { key: "about", label: language === "RO" ? "Despre Noi" : "About" },
-                  { key: "industries", label: language === "RO" ? "Industrii" : "Industries" },
-                  { key: "pricing", label: language === "RO" ? "Prețuri" : "Pricing" },
-                  { key: "process", label: language === "RO" ? "Proces" : "Process" },
-                  { key: "contact", label: language === "RO" ? "Contact" : "Contact" },
-                ].map((item) => (
-                  <button
-                    key={item.key}
-                    onClick={() => scrollToSection(item.key)}
-                    className="text-gray-700 hover:text-blue-600 transition-colors font-medium text-left py-2"
+            <div className="lg:hidden fixed inset-0 z-50 bg-gray-900/95 backdrop-blur-sm">
+              <div className="container mx-auto px-6 py-8">
+                <div className="flex justify-end mb-8">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="text-white hover:bg-white/10"
                   >
-                    {item.label}
-                  </button>
-                ))}
-                <Button
-                  className="bg-blue-600 hover:bg-blue-700 text-white mt-4"
-                  onClick={() => scrollToSection("contact")}
-                >
-                  {language === "RO" ? "Începe Acum" : "Get Started"}
-                </Button>
-              </nav>
+                    <X className="h-6 w-6" />
+                  </Button>
+                </div>
+                
+                <nav className="flex flex-col space-y-6">
+                  {[
+                    { key: "home", label: language === "RO" ? "Acasă" : "Home" },
+                    { key: "about", label: language === "RO" ? "Despre Noi" : "About" },
+                    { key: "industries", label: language === "RO" ? "Industrii" : "Industries" },
+                    { key: "pricing", label: language === "RO" ? "Prețuri" : "Pricing" },
+                    { key: "process", label: language === "RO" ? "Proces" : "Process" },
+                    { key: "contact", label: language === "RO" ? "Contact" : "Contact" },
+                  ].map((item) => (
+                    <button
+                      key={item.key}
+                      onClick={() => {
+                        scrollToSection(item.key);
+                        setMobileMenuOpen(false);
+                      }}
+                      className="text-white text-2xl font-medium hover:text-blue-400 transition-colors"
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </nav>
+
+                <div className="mt-8 pt-8 border-t border-white/20">
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button variant="outline" size="lg" className="w-full text-white border-white/20">
+                        <Languages className="h-5 w-5 mr-2" />
+                        {languages.find((lang) => lang.code === language)?.flag} {language}
+                        <ChevronDown className="h-5 w-5 ml-2" />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent className="w-full">
+                      {languages.map((lang) => (
+                        <DropdownMenuItem
+                          key={lang.code}
+                          onClick={() => {
+                            setLanguage(lang.code as "RO" | "EN");
+                            setMobileMenuOpen(false);
+                          }}
+                        >
+                          <span className="mr-2">{lang.flag}</span>
+                          {lang.name}
+                        </DropdownMenuItem>
+                      ))}
+                    </DropdownMenuContent>
+                  </DropdownMenu>
+
+                  <Button
+                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white"
+                    size="lg"
+                    onClick={() => {
+                      scrollToSection("contact");
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    {language === "RO" ? "Începe Acum" : "Get Started"}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
+                </div>
+              </div>
             </div>
           )}
         </div>
@@ -1609,18 +1646,18 @@ export default function TrueManPowerPremium() {
 
       {/* Team Section */}
       <section className="py-24 bg-gradient-to-br from-gray-900 to-blue-900">
-        <div className="container mx-auto px-6">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-12">
-            <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg inline-flex items-center">
-              <Users className="h-5 w-5 mr-2" />
+            <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-base sm:text-lg px-4 sm:px-8 py-2 sm:py-4 shadow-lg inline-flex items-center">
+              <Users className="h-4 w-4 sm:h-5 sm:w-5 mr-2" />
               {language === "RO" ? "Echipa Noastră" : "Our Team"}
             </Badge>
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-6 text-white">
               {language === "RO" 
                 ? "Profesioniștii din Spatele Succesului" 
                 : "The Professionals Behind Success"}
             </h2>
-            <p className="text-xl text-gray-400 max-w-3xl mx-auto">
+            <p className="text-lg sm:text-xl text-gray-400 max-w-3xl mx-auto">
               {language === "RO"
                 ? "Cunoaște echipa dedicată care face posibilă conectarea talentului global cu oportunitățile din România."
                 : "Meet the dedicated team that makes connecting global talent with opportunities in Romania possible."}
