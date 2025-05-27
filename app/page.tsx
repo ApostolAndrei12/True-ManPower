@@ -252,10 +252,15 @@ export default function TrueManPowerPremium() {
   ];
 
   // Pricing Section Component
-  const PricingCard = ({ plan }) => (
+  const PricingCard = ({ plan, index }) => (
     <div 
       className={`relative group transition-all duration-300 hover:scale-105 hover:z-10`}
-      style={{ perspective: "1000px" }}
+      style={{ 
+        perspective: "1000px",
+        animation: `fadeInUp 0.5s ease-out forwards ${index * 0.1}s`,
+        opacity: 0,
+        transform: 'translateY(20px)',
+      }}
     >
       <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-500 group-hover:shadow-2xl border border-gray-100">
         {plan.isPopular && (
@@ -1110,7 +1115,7 @@ export default function TrueManPowerPremium() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {pricingPlans.map((plan, index) => (
-              <PricingCard key={index} plan={plan} />
+              <PricingCard key={index} plan={plan} index={index} />
             ))}
           </div>
 
