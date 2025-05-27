@@ -66,13 +66,17 @@ export default function Home() {
                   variant="outline" 
                   className="bg-white/10 hover:bg-white/20 flex items-center gap-2"
                   onClick={() => scrollToSection('contact')}
+                  </Button>
+                 <Button 
+                  size="lg" 
+                  className="group bg-white/90 hover:bg-blue-50 text-blue-600 px-12 py-6 text-xl font-semibold shadow-2xl backdrop-blur-sm transition-all duration-300 transform hover:scale-105 border-2 border-blue-600"
+                  onClick={() => scrollToSection('contact')}
                 >
-                  <Mail className="w-4 h-4" />
-                  <Phone className="w-4 h-4" />
+                  <Phone className="mr-2 h-6 w-6 group-hover:rotate-12 transition-transform" />
+                  <Mail className="mr-3 h-6 w-6 group-hover:rotate-12 transition-transform" />
                   Contactați-ne acum
+                  <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
                 </Button>
-              </div>
-            </motion.div>
 
             {/* Avantaje cu Badge-uri */}
             <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
