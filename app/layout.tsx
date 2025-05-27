@@ -1,24 +1,13 @@
 import type { Metadata } from "next"
-import { Inter, Montserrat, Roboto } from 'next/font/google'
+import { Inter } from 'next/font/google'
 import "./globals.css"
 
 const inter = Inter({ subsets: ["latin"] })
 
-const montserrat = Montserrat({
-  subsets: ['latin'],
-  variable: '--font-montserrat',
-})
-
-const roboto = Roboto({
-  weight: ['400', '500', '700'],
-  subsets: ['latin'],
-  variable: '--font-roboto',
-})
-
 export const metadata: Metadata = {
-  title: "True ManPower® S.R.L. - International Recruitment Agency",
-  description: "Recruiting skilled workers from Asia and Africa for Romanian companies. Legal, transparent, and reliable international recruitment services.",
-  keywords: "international recruitment, Romania, skilled workers, work permits, visa assistance, Pakistan, Bangladesh, Nepal, Sri Lanka, Ethiopia, Turkey",
+  title: "True ManPower® S.R.L. - Agenție de Recrutare Internațională",
+  description: "Recrutăm forță de muncă calificată și necalificată din țări non-UE pentru companii din România. Servicii de recrutare internațională legale, transparente și de încredere.",
+  keywords: "recrutare internațională, România, muncitori calificați, permise de muncă, asistență viză, Pakistan, Bangladesh, Nepal, Sri Lanka, Etiopia, Turcia",
 }
 
 export default function RootLayout({
@@ -27,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="ro" className={`${montserrat.variable} ${roboto.variable}`}>
+    <html lang="ro">
       <head>
         <link rel="icon" href="/favicon.ico" />
       </head>
