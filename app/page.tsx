@@ -195,7 +195,7 @@ export default function TrueManPowerPremium() {
         "Tot ce include Pachetul Kickstart",
         "Procesare prioritară acte",
         "Manager dedicat de cont",
-        "Suport extins 12/7",
+        "Suport extins 24/7",
         "Asistență cazare"
       ],
       icon: Rocket,
@@ -397,13 +397,13 @@ export default function TrueManPowerPremium() {
           "Tot ce include Pachetul Kickstart",
           "Procesare prioritară acte",
           "Manager dedicat de cont",
-          "Suport extins 12/7",
+          "Suport extins 24/7",
           "Asistență cazare"
         ] : [
           "Everything in Kickstart Package",
           "Priority document processing",
           "Dedicated account manager",
-          "Extended 12/7 support",
+          "Extended 24/7 support",
           "Housing assistance"
         ]
       },
