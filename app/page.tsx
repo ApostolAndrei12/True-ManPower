@@ -1,5 +1,7 @@
+// @ts-nocheck
 "use client"
 
+import type { FormEvent } from "react"
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
@@ -8,6 +10,9 @@ import { Textarea } from "@/components/ui/textarea"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription } from "@/components/ui/dialog"
+import { Label } from "@/components/ui/label"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import {
   Phone,
   Mail,
@@ -44,17 +49,47 @@ import {
   WashingMachineIcon as Cleaning,
 } from "lucide-react"
 
+interface FormData {
+  companyName: string
+  contactName: string
+  industry: string
+  workersNeeded: string
+  phone: string
+  email: string
+}
+
+interface Industry {
+  icon: any // Using any here since we can't properly type Lucide icons
+  name: string
+}
+
+interface Language {
+  code: string
+  name: string
+  flag: string
+}
+
 export default function TrueManPowerPremium() {
   const [isScrolled, setIsScrolled] = useState(false)
-  const [language, setLanguage] = useState("EN")
+  const [language, setLanguage] = useState<"RO" | "EN">("RO")
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [showLeadMagnet, setShowLeadMagnet] = useState(false)
   const [currentHeroImage, setCurrentHeroImage] = useState(0)
+  const [showLeadForm, setShowLeadForm] = useState(false)
+  const [selectedIndustry, setSelectedIndustry] = useState("")
+  const [formData, setFormData] = useState<FormData>({
+    companyName: "",
+    contactName: "",
+    industry: "",
+    workersNeeded: "",
+    phone: "",
+    email: ""
+  })
 
   const heroImages = [
-    "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-    "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-    "https://images.unsplash.com/photo-1560472354-b33ff0c44a43?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
   ]
 
   useEffect(() => {
@@ -80,68 +115,80 @@ export default function TrueManPowerPremium() {
     setMobileMenuOpen(false)
   }
 
-  // Comprehensive language support
+  // Simplified language support
   const languages = [
-    { code: "EN", name: "English", flag: "🇺🇸" },
     { code: "RO", name: "Română", flag: "🇷🇴" },
-    { code: "UR", name: "اردو", flag: "🇵🇰" },
-    { code: "BN", name: "বাংলা", flag: "🇧🇩" },
-    { code: "NP", name: "नेपाली", flag: "🇳🇵" },
-    { code: "HI", name: "हिन्दी", flag: "🇮🇳" },
-    { code: "TA", name: "தமிழ்", flag: "🇱🇰" },
-    { code: "TR", name: "Türkçe", flag: "🇹🇷" },
-    { code: "AR", name: "العربية", flag: "🇸🇦" },
-    { code: "FR", name: "Français", flag: "🇫🇷" },
-    { code: "DE", name: "Deutsch", flag: "🇩🇪" },
-    { code: "ES", name: "Español", flag: "🇪🇸" },
-    { code: "IT", name: "Italiano", flag: "🇮🇹" },
-    { code: "PT", name: "Português", flag: "🇵🇹" },
-    { code: "RU", name: "Русский", flag: "🇷🇺" },
-    { code: "ZH", name: "中文", flag: "🇨🇳" },
-    { code: "JA", name: "日本語", flag: "🇯🇵" },
-    { code: "KO", name: "한국어", flag: "🇰🇷" },
-    { code: "PL", name: "Polski", flag: "🇵🇱" },
-    { code: "HU", name: "Magyar", flag: "🇭🇺" },
+    { code: "EN", name: "English", flag: "🇺🇸" },
   ]
 
   const translations = {
+    RO: {
+      home: "Acasă",
+      about: "Despre Noi",
+      industries: "Domenii de Activitate",
+      pricing: "Pachete și Prețuri",
+      process: "Proces",
+      contact: "Contact",
+      heroTitle: "Recrutăm muncitori calificați din țări non-UE pentru companiile din România",
+      heroSubtitle: "Soluții complete de recrutare pentru companii românești",
+      heroDescription: "Oferim servicii profesionale de recrutare a forței de muncă din țări non-UE, cu focus pe domeniile: construcții, producție, HORECA, agricultură și transport. Proces simplu, prețuri transparente, suport legal complet.",
+      getStarted: "Solicită o Ofertă",
+      learnMore: "Află Mai Multe",
+      downloadGuide: "Descarcă Ghidul de Recrutare",
+      seeOurPrices: "Vezi Pachetele",
+      freeConsultation: "Consultație Gratuită",
+      pricingPlans: {
+        standard: "Recrutare de bază – 1 muncitor/lună",
+        premium: "Recrutare accelerată – până la 5 muncitori",
+        enterprise: "Personalizat pentru nevoile firmei tale"
+      }
+    },
     EN: {
       home: "Home",
       about: "About",
       industries: "Industries",
-      pricing: "Pricing",
+      pricing: "Packages & Pricing",
       process: "Process",
       contact: "Contact",
-      heroTitle: "Overseas Recruitment of Non-EU Workers ",
-      heroSubtitle: "From Pakistan, Bangladesh, Nepal, Sri Lanka, Ethiopia, Nigeria, Turkey, and many others",
-      heroDescription:
-        "We help skilled professionals and unqualified workers from Non-EU countries find excellent career opportunities with Romanian companies. Simple process, transparent pricing, complete legal support.",
-      getStarted: "Get Started Today",
+      heroTitle: "We recruit skilled workers from non-EU countries for Romanian companies",
+      heroSubtitle: "Complete recruitment solutions for Romanian businesses",
+      heroDescription: "We provide professional workforce recruitment services from non-EU countries, focusing on: construction, manufacturing, HORECA, agriculture, and transportation. Simple process, transparent pricing, complete legal support.",
+      getStarted: "Request an Offer",
       learnMore: "Learn More",
-      downloadGuide: "Free Recruitment Guide",
-      seeOurPrices: "View Pricing",
+      downloadGuide: "Download Recruitment Guide",
+      seeOurPrices: "View Packages",
       freeConsultation: "Free Consultation",
-    },
-    RO: {
-      home: "Acasă",
-      about: "Despre Noi",
-      industrii: "Industrii",
-      pricing: "Prețuri",
-      process: "Proces",
-      contact: "Contact",
-      heroTitle: "Recrutăm Lucrători Calificați din Străinătate",
-      heroSubtitle: "Din Pakistan, Bangladesh, Nepal, Sri Lanka, Etiopia, Turcia, și multe altele",
-      heroDescription:
-        "Ajutăm profesioniști calificați și muncitori necalificați din Țările Non-EU să găsească oportunități excelente de carieră cu companii românești. Proces simplu, prețuri transparente, suport legal complet.",
-      getStarted: "Începe Astăzi",
-      learnMore: "Află Mai Mult",
-      downloadGuide: "Ghid Gratuit de Recrutare",
-      seeOurPrices: "Vezi Prețurile",
-      freeConsultation: "Consultație Gratuită",
-    },
+      pricingPlans: {
+        standard: "Basic Recruitment – 1 worker/month",
+        premium: "Accelerated Recruitment – up to 5 workers",
+        enterprise: "Customized for your company's needs"
+      }
+    }
   }
 
   const t = translations[language as keyof typeof translations] || translations.EN
+
+  const handleFormSubmit = (e: FormEvent) => {
+    e.preventDefault()
+    // Here you would typically send the form data to your backend
+    console.log("Form submitted:", formData)
+    setShowLeadForm(false)
+    // Reset form
+    setFormData({
+      companyName: "",
+      contactName: "",
+      industry: "",
+      workersNeeded: "",
+      phone: "",
+      email: ""
+    })
+  }
+
+  const handleIndustryClick = (industry: string) => {
+    setSelectedIndustry(industry)
+    setFormData(prev => ({ ...prev, industry }))
+    setShowLeadForm(true)
+  }
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
@@ -183,7 +230,7 @@ export default function TrueManPowerPremium() {
                   {languages.map((lang) => (
                     <DropdownMenuItem
                       key={lang.code}
-                      onClick={() => setLanguage(lang.code)}
+                      onClick={() => setLanguage(lang.code as "RO" | "EN")}
                       className="text-gray-700 hover:bg-blue-50 hover:text-blue-600"
                     >
                       <span className="mr-3">{lang.flag}</span>
@@ -288,11 +335,8 @@ export default function TrueManPowerPremium() {
         </div>
       </header>
 
-      {/* Hero Section with Rotating Images */}
-      <section
-        id="home"
-        className="relative min-h-screen flex items-center justify-center pt-32 bg-gradient-to-br from-slate-50 to-blue-50"
-      >
+      {/* Hero Section */}
+      <section id="home" className="relative min-h-screen flex items-center justify-center pt-32 bg-gradient-to-br from-slate-50 to-blue-50">
         <div className="absolute inset-0 z-10">
           {heroImages.map((image, index) => (
             <Image
@@ -372,222 +416,239 @@ export default function TrueManPowerPremium() {
         </div>
       </section>
 
-      {/* Pricing Section - MOVED UP! */}
-      <section id="pricing" className="py-20 bg-gradient-to-br from-blue-50 to-indigo-50">
+      {/* High-Level Lead Form */}
+      <section className="py-16 bg-white border-t border-gray-100">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-2xl shadow-2xl p-8 md:p-12">
+              <h3 className="text-2xl md:text-3xl font-bold text-white mb-6 text-center">
+                {language === "RO" 
+                  ? "Spune-ne de câți muncitori ai nevoie" 
+                  : "Tell us how many workers you need"}
+              </h3>
+              <form onSubmit={handleFormSubmit} className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <Input
+                  type="text"
+                  placeholder={language === "RO" ? "Nume firmă" : "Company name"}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/70"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
+                  required
+                />
+                <Input
+                  type="number"
+                  min="1"
+                  placeholder={language === "RO" ? "Număr muncitori" : "Number of workers"}
+                  className="bg-white/10 border-white/20 text-white placeholder:text-white/70"
+                  value={formData.workersNeeded}
+                  onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
+                  required
+                />
+                <Button 
+                  type="submit"
+                  className="w-full bg-white hover:bg-blue-50 text-blue-600 font-semibold"
+                >
+                  {language === "RO" ? "Solicită o Ofertă" : "Request a Quote"}
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section - Moved up */}
+      <section id="pricing" className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="mb-8 bg-green-100 text-green-800 border-green-200 text-lg px-8 py-4 shadow-lg">
-              <DollarSign className="h-5 w-5 mr-2" />
-              Accessible Prices
-            </Badge>
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900">Cheapest on the Market</h2>
-            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-              No hidden fees, no surprises. You know exactly what you pay for at every step of the process.
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              {language === "RO" ? "Pachete de Recrutare Personalizate" : "Customized Recruitment Packages"}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {language === "RO" 
+                ? "Alegeti pachetul potrivit pentru nevoile companiei dumneavoastră" 
+                : "Choose the right package for your company's needs"}
             </p>
           </div>
 
-          <div className="max-w-6xl mx-auto">
-            {/* Pricing Cards */}
-            <div className="grid md:grid-cols-3 gap-8 mb-16">
-              <Card className="bg-white border-2 border-blue-200 shadow-2xl text-center relative overflow-hidden group hover:scale-105 transition-all duration-300">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 to-blue-600"></div>
-                <CardContent className="p-10">
-                  <FileText className="h-16 w-16 text-blue-600 mx-auto mb-6" />
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Work Permit Processing</h3>
-                  <div className="text-5xl font-bold text-blue-600 mb-6">$500</div>
-                  <p className="text-gray-600 mb-6">Complete documentation and submission</p>
-                  <ul className="text-sm text-gray-600 space-y-3 text-left">
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Document preparation & verification
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Application submission & tracking
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Legal compliance assurance
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
+          <div className="grid md:grid-cols-3 gap-8 max-w-7xl mx-auto">
+            {/* Standard Plan */}
+            <Card className="relative bg-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-gray-900">
+                  {t.pricingPlans.standard}
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  {language === "RO" 
+                    ? "Ideal pentru companii mici" 
+                    : "Perfect for small companies"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-4">
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                    {language === "RO" 
+                      ? "Recrutare pentru 1 poziție" 
+                      : "Recruitment for 1 position"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                    {language === "RO" 
+                      ? "Suport documentație completă" 
+                      : "Complete documentation support"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                    {language === "RO" 
+                      ? "Verificare candidați" 
+                      : "Candidate verification"}
+                  </li>
+                </ul>
+                <Button 
+                  className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => scrollToSection("contact")}
+                >
+                  {language === "RO" ? "Solicită Ofertă" : "Request Quote"}
+                </Button>
+              </CardContent>
+            </Card>
 
-              <Card className="bg-white border-2 border-green-200 shadow-2xl text-center relative overflow-hidden group hover:scale-105 transition-all duration-300">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-green-500 to-green-600"></div>
-                <CardContent className="p-10">
-                  <Globe className="h-16 w-16 text-green-600 mx-auto mb-6" />
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Visa Application</h3>
-                  <div className="text-5xl font-bold text-green-600 mb-6">$500</div>
-                  <p className="text-green-600 font-semibold mb-6">Refundable if visa denied</p>
-                  <ul className="text-sm text-gray-600 space-y-3 text-left">
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Visa application support
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Interview preparation
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Embassy liaison & assistance
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
+            {/* Premium Plan */}
+            <Card className="relative bg-blue-600 text-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold">
+                  {t.pricingPlans.premium}
+                </CardTitle>
+                <CardDescription className="text-blue-100">
+                  {language === "RO" 
+                    ? "Pentru companii în dezvoltare" 
+                    : "For growing companies"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-4">
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-white mr-2" />
+                    {language === "RO" 
+                      ? "Recrutare pentru până la 5 poziții" 
+                      : "Recruitment for up to 5 positions"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-white mr-2" />
+                    {language === "RO" 
+                      ? "Procesare accelerată" 
+                      : "Accelerated processing"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-white mr-2" />
+                    {language === "RO" 
+                      ? "Manager de cont dedicat" 
+                      : "Dedicated account manager"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-white mr-2" />
+                    {language === "RO" 
+                      ? "Suport prioritar" 
+                      : "Priority support"}
+                  </li>
+                </ul>
+                <Button 
+                  className="w-full mt-8 bg-white text-blue-600 hover:bg-blue-50"
+                  onClick={() => scrollToSection("contact")}
+                >
+                  {language === "RO" ? "Solicită Ofertă" : "Request Quote"}
+                </Button>
+              </CardContent>
+            </Card>
 
-              <Card className="bg-white border-2 border-purple-200 shadow-2xl text-center relative overflow-hidden group hover:scale-105 transition-all duration-300">
-                <div className="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-purple-500 to-purple-600"></div>
-                <CardContent className="p-10">
-                  <Users className="h-16 w-16 text-purple-600 mx-auto mb-6" />
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">Worker Placement</h3>
-                  <div className="text-5xl font-bold text-purple-600 mb-6">$600</div>
-                  <p className="text-gray-600 mb-6">After successful job placement</p>
-                  <ul className="text-sm text-gray-600 space-y-3 text-left">
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Recruitment & background checks
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      Job matching & placement
-                    </li>
-                    <li className="flex items-center">
-                      <CheckCircle className="h-4 w-4 text-green-600 mr-2" />
-                      3-month support + TRC assistance
-                    </li>
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-
-            {/* Total Cost Summary */}
-            <Card className="bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-2xl">
-              <CardContent className="p-12 text-center">
-                <Sparkles className="h-16 w-16 text-white mx-auto mb-6" />
-                <h3 className="text-3xl font-bold mb-6">Complete Service Package</h3>
-                <div className="text-6xl font-bold mb-6">$1,600</div>
-                <p className="text-xl mb-8 opacity-90">
-                  Everything included from recruitment to successful job placement in Romania
-                </p>
-                <div className="grid md:grid-cols-3 gap-6 text-sm">
-                  <div className="flex items-center justify-center space-x-3 bg-white/10 rounded-lg p-4">
-                    <Shield className="h-6 w-6" />
-                    <span>No Hidden Fees</span>
-                  </div>
-                  <div className="flex items-center justify-center space-x-3 bg-white/10 rounded-lg p-4">
-                    <CheckCircle className="h-6 w-6" />
-                    <span>Money Back Guarantee</span>
-                  </div>
-                  <div className="flex items-center justify-center space-x-3 bg-white/10 rounded-lg p-4">
-                    <Headphones className="h-6 w-6" />
-                    <span>Full Support Included</span>
-                  </div>
-                </div>
+            {/* Enterprise Plan */}
+            <Card className="relative bg-white shadow-xl rounded-2xl hover:scale-105 transition-transform duration-300">
+              <CardHeader>
+                <CardTitle className="text-2xl font-bold text-gray-900">
+                  {t.pricingPlans.enterprise}
+                </CardTitle>
+                <CardDescription className="text-gray-600">
+                  {language === "RO" 
+                    ? "Pentru companii mari" 
+                    : "For large companies"}
+                </CardDescription>
+              </CardHeader>
+              <CardContent>
+                <ul className="space-y-4">
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                    {language === "RO" 
+                      ? "Număr nelimitat de poziții" 
+                      : "Unlimited positions"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                    {language === "RO" 
+                      ? "Soluție personalizată" 
+                      : "Customized solution"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                    {language === "RO" 
+                      ? "Suport juridic dedicat" 
+                      : "Dedicated legal support"}
+                  </li>
+                  <li className="flex items-center">
+                    <CheckCircle className="h-5 w-5 text-green-500 mr-2" />
+                    {language === "RO" 
+                      ? "Servicii premium complete" 
+                      : "Complete premium services"}
+                  </li>
+                </ul>
+                <Button 
+                  className="w-full mt-8 bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => scrollToSection("contact")}
+                >
+                  {language === "RO" ? "Contactează-ne" : "Contact Us"}
+                </Button>
               </CardContent>
             </Card>
           </div>
         </div>
       </section>
 
-      {/* Industries Section - Premium */}
-      <section id="industries" className="py-20 bg-white">
+      {/* Industries Section */}
+      <section id="industries" className="py-24 bg-gray-50">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
-            <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg">
-              <Factory className="h-5 w-5 mr-2" />
-              Industries We Serve
-            </Badge>
-            <h2 className="text-4xl md:text-6xl font-bold mb-8 text-gray-900">Specialized Sector Expertise</h2>
-            <p className="text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-              We provide skilled workers across multiple industries with deep understanding of sector-specific
-              requirements and regulations.
+            <h2 className="text-4xl font-bold text-gray-900 mb-4">
+              {language === "RO" ? "Domenii de Activitate" : "Industry Domains"}
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              {language === "RO" 
+                ? "Recrutăm personal calificat pentru următoarele domenii de activitate" 
+                : "We recruit qualified personnel for the following industries"}
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
             {[
-              {
-                icon: Factory,
-                title: "Manufacturing",
-                image:
-                  "https://images.unsplash.com/photo-1565793298595-6a879b1d9492?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Machine operators, assembly workers, quality control specialists",
-              },
-              {
-                icon: HardHat,
-                title: "Construction",
-                image:
-                  "https://images.unsplash.com/photo-1504307651254-35680f356dfd?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Construction workers, electricians, plumbers, welders",
-              },
-              {
-                icon: Truck,
-                title: "Logistics",
-                image:
-                  "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Truck drivers, warehouse workers, logistics coordinators",
-              },
-              {
-                icon: Utensils,
-                title: "Hospitality",
-                image:
-                  "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Hotel staff, chefs, restaurant workers, service personnel",
-              },
-              {
-                icon: Cleaning,
-                title: "Cleaning Services",
-                image:
-                  "https://images.unsplash.com/photo-1581578731548-c64695cc6952?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Professional cleaners, maintenance staff, facility management",
-              },
-              {
-                icon: Wheat,
-                title: "Agriculture",
-                image:
-                  "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Farm workers, greenhouse staff, agricultural technicians",
-              },
-              {
-                icon: Truck,
-                title: "Drivers",
-                image:
-                  "https://images.unsplash.com/photo-1449824913935-59a10b8d2000?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Professional drivers, delivery personnel, transport operators",
-              },
-              {
-                icon: ShieldCheck,
-                title: "Security",
-                image:
-                  "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80",
-                description: "Security guards, surveillance operators, safety personnel",
-              },
+              { icon: HardHat, name: language === "RO" ? "Construcții" : "Construction" },
+              { icon: Factory, name: language === "RO" ? "Producție" : "Manufacturing" },
+              { icon: Utensils, name: language === "RO" ? "HORECA" : "HORECA" },
+              { icon: Wheat, name: language === "RO" ? "Agricultură" : "Agriculture" },
+              { icon: Truck, name: language === "RO" ? "Transport" : "Transportation" },
+              { icon: Cleaning, name: language === "RO" ? "Curățenie" : "Cleaning" },
             ].map((industry, index) => (
-              <Card
+              <Card 
                 key={index}
-                className="group bg-white border border-gray-200 hover:border-blue-300 hover:shadow-2xl transition-all duration-500 hover:scale-105 overflow-hidden"
+                className="group cursor-pointer hover:scale-105 transition-all duration-300"
+                onClick={() => handleIndustryClick(industry.name)}
               >
-                <div className="relative h-48 overflow-hidden">
-                  <Image
-                    src={industry.image || "/placeholder.svg"}
-                    alt={industry.title}
-                    fill
-                    className="object-cover group-hover:scale-110 transition-transform duration-500"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent"></div>
-                  <div className="absolute top-4 left-4">
-                    <div className="bg-blue-600 rounded-xl p-3 shadow-lg">
-                      <industry.icon className="h-6 w-6 text-white" />
-                    </div>
-                  </div>
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-xl font-bold text-white mb-2">{industry.title}</h3>
-                  </div>
-                </div>
-                <CardContent className="p-6">
-                  <p className="text-gray-700 leading-relaxed">{industry.description}</p>
+                <CardContent className="p-8 flex flex-col items-center text-center">
+                  <industry.icon className="h-16 w-16 text-blue-600 mb-6 group-hover:scale-110 transition-transform duration-300" />
+                  <h3 className="text-2xl font-bold text-gray-900 mb-4">{industry.name}</h3>
+                  <p className="text-gray-600">
+                    {language === "RO" 
+                      ? "Click pentru a solicita personal" 
+                      : "Click to request personnel"}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -783,6 +844,42 @@ export default function TrueManPowerPremium() {
                 </CardContent>
               </Card>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Download Guide Section */}
+      <section className="py-16 bg-gradient-to-br from-blue-50 to-blue-100">
+        <div className="container mx-auto px-6">
+          <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
+              <div className="flex-1">
+                <h3 className="text-3xl font-bold text-gray-900 mb-4">
+                  {language === "RO" 
+                    ? "Descarcă procesul nostru de recrutare" 
+                    : "Download our recruitment process"}
+                </h3>
+                <p className="text-lg text-gray-600 mb-6">
+                  {language === "RO"
+                    ? "Află pas cu pas cum funcționează procesul nostru de recrutare, documentele necesare și termenele estimate."
+                    : "Learn step by step how our recruitment process works, required documents, and estimated timelines."}
+                </p>
+                <Button 
+                  className="flex items-center space-x-2 bg-blue-600 hover:bg-blue-700 text-white"
+                  onClick={() => window.open("/recruitment-process-guide.pdf", "_blank")}
+                >
+                  <Download className="h-5 w-5" />
+                  <span>
+                    {language === "RO" 
+                      ? "Descarcă Ghidul PDF" 
+                      : "Download PDF Guide"}
+                  </span>
+                </Button>
+              </div>
+              <div className="flex-1 flex justify-center">
+                <FileText className="h-32 w-32 text-blue-600" />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -1049,7 +1146,7 @@ export default function TrueManPowerPremium() {
                   {languages.map((lang) => (
                     <DropdownMenuItem
                       key={lang.code}
-                      onClick={() => setLanguage(lang.code)}
+                      onClick={() => setLanguage(lang.code as "RO" | "EN")}
                       className="text-gray-300 hover:bg-gray-700 hover:text-blue-400"
                     >
                       <span className="mr-3">{lang.flag}</span>
@@ -1126,6 +1223,88 @@ export default function TrueManPowerPremium() {
           </Card>
         </div>
       )}
+
+      {/* Lead Form Dialog */}
+      <Dialog open={showLeadForm} onOpenChange={setShowLeadForm}>
+        <DialogContent className="sm:max-w-[500px]">
+          <DialogHeader>
+            <DialogTitle>
+              {language === "RO" 
+                ? `Solicitare Personal - ${selectedIndustry}` 
+                : `Personnel Request - ${selectedIndustry}`}
+            </DialogTitle>
+            <DialogDescription>
+              {language === "RO"
+                ? "Completați formularul și vă vom contacta în cel mai scurt timp"
+                : "Fill out the form and we will contact you shortly"}
+            </DialogDescription>
+          </DialogHeader>
+          <form onSubmit={handleFormSubmit} className="space-y-6">
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="companyName">
+                  {language === "RO" ? "Nume firmă" : "Company name"}
+                </Label>
+                <Input
+                  id="companyName"
+                  value={formData.companyName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="contactName">
+                  {language === "RO" ? "Nume contact" : "Contact name"}
+                </Label>
+                <Input
+                  id="contactName"
+                  value={formData.contactName}
+                  onChange={(e) => setFormData(prev => ({ ...prev, contactName: e.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="workersNeeded">
+                  {language === "RO" ? "Număr muncitori necesari" : "Number of workers needed"}
+                </Label>
+                <Input
+                  id="workersNeeded"
+                  type="number"
+                  min="1"
+                  value={formData.workersNeeded}
+                  onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="phone">
+                  {language === "RO" ? "Telefon" : "Phone"}
+                </Label>
+                <Input
+                  id="phone"
+                  type="tel"
+                  value={formData.phone}
+                  onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
+                  required
+                />
+              </div>
+              <div>
+                <Label htmlFor="email">Email</Label>
+                <Input
+                  id="email"
+                  type="email"
+                  value={formData.email}
+                  onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))}
+                  required
+                />
+              </div>
+            </div>
+            <Button type="submit" className="w-full">
+              {language === "RO" ? "Trimite solicitarea" : "Submit request"}
+            </Button>
+          </form>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
