@@ -2,7 +2,7 @@
 "use client"
 
 import type { FormEvent } from "react"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -252,10 +252,15 @@ export default function TrueManPowerPremium() {
   ];
 
   // Pricing Section Component
-  const PricingCard = ({ plan }) => (
+  const PricingCard = ({ plan, index }) => (
     <div 
       className={`relative group transition-all duration-300 hover:scale-105 hover:z-10`}
-      style={{ perspective: "1000px" }}
+      style={{ 
+        perspective: "1000px",
+        animation: `fadeInUp 0.5s ease-out forwards ${index * 0.1}s`,
+        opacity: 0,
+        transform: 'translateY(20px)',
+      }}
     >
       <div className="relative bg-white rounded-2xl shadow-xl overflow-hidden transition-all duration-500 group-hover:shadow-2xl border border-gray-100">
         {plan.isPopular && (
@@ -670,14 +675,49 @@ export default function TrueManPowerPremium() {
   // Team Section Component with Slider
   const TeamSection = ({ language }) => {
     const [currentMemberIndex, setCurrentMemberIndex] = useState(0);
+    const timerRef = useRef<number | null>(null); // Folosim useRef pentru a stoca ID-ul timer-ului
+
+    // Funcție pentru a curăța timer-ul existent
+    const clearExistingTimer = () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+
+    const handleSetMemberIndex = (newIndex: number) => {
+      clearExistingTimer(); // Curățăm orice timer anterior
+      setCurrentMemberIndex(newIndex);
+
+      // Dacă noul membru selectat nu este primul (index 0), pornim un timer
+      // care va reseta selecția la primul membru după 20 de secunde.
+      if (newIndex !== 0) {
+        timerRef.current = window.setTimeout(() => {
+          setCurrentMemberIndex(0); // Resetează la Apostol Andrei-Eusebiu
+        }, 20000); // 20000 milisecunde = 20 secunde
+      }
+    };
 
     const nextMember = () => {
-      setCurrentMemberIndex((prev) => (prev + 1) % teamMembers.length);
+      const newIndex = (currentMemberIndex + 1) % teamMembers.length;
+      handleSetMemberIndex(newIndex);
     };
 
     const prevMember = () => {
-      setCurrentMemberIndex((prev) => (prev - 1 + teamMembers.length) % teamMembers.length);
+      const newIndex = (currentMemberIndex - 1 + teamMembers.length) % teamMembers.length;
+      handleSetMemberIndex(newIndex);
     };
+
+    const goToMember = (index: number) => {
+      handleSetMemberIndex(index);
+    };
+
+    // Hook useEffect pentru a curăța timer-ul la demontarea componentei
+    useEffect(() => {
+      return () => {
+        clearExistingTimer();
+      };
+    }, []);
 
     return (
       <div className="relative">
@@ -706,7 +746,7 @@ export default function TrueManPowerPremium() {
           {teamMembers.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentMemberIndex(index)}
+              onClick={() => goToMember(index)} // Am actualizat aici pentru a folosi goToMember
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
                 index === currentMemberIndex ? 'bg-blue-600 w-6' : 'bg-gray-400'
               }`}
@@ -828,7 +868,7 @@ export default function TrueManPowerPremium() {
               </DropdownMenu>
               <Button
                 className="bg-blue-600 hover:bg-blue-700 text-white"
-                onClick={() => scrollToSection("contact")}
+                onClick={() => setShowLeadForm(true)}
               >
                 {language === "RO" ? "Începe Acum" : "Get Started"}
               </Button>
@@ -883,6 +923,17 @@ export default function TrueManPowerPremium() {
                 </nav>
 
                 <div className="mt-8 pt-8 border-t border-white/20">
+                  <Button
+                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white mb-4"
+                    size="lg"
+                    onClick={() => {
+                      setShowLeadForm(true);
+                      setMobileMenuOpen(false);
+                    }}
+                  >
+                    {language === "RO" ? "Începe Acum" : "Get Started"}
+                    <ArrowRight className="ml-2 h-5 w-5" />
+                  </Button>
                   <DropdownMenu>
                     <DropdownMenuTrigger asChild>
                       <Button variant="outline" size="lg" className="w-full text-white border-white/20">
@@ -906,18 +957,6 @@ export default function TrueManPowerPremium() {
                       ))}
                     </DropdownMenuContent>
                   </DropdownMenu>
-
-                  <Button
-                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white"
-                    size="lg"
-                    onClick={() => {
-                      scrollToSection("contact");
-                      setMobileMenuOpen(false);
-                    }}
-                  >
-                    {language === "RO" ? "Începe Acum" : "Get Started"}
-                    <ArrowRight className="ml-2 h-5 w-5" />
-                  </Button>
                 </div>
               </div>
             </div>
@@ -947,7 +986,7 @@ export default function TrueManPowerPremium() {
           <div className="max-w-6xl mx-auto">
             <Badge className="mb-8 bg-blue-100 text-blue-800 border-blue-200 text-lg px-8 py-4 shadow-lg">
               <Globe className="h-5 w-5 mr-3" />
-              {language === "RO" ? "Recrutare Internațională Atestată" : "Trusted International Recruitment Since 2025"}
+              {language === "RO" ? "Agenție de Recrutare Internațională Oficială" : "Trusted International Recruitment Since 2025"}
             </Badge>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-gray-900">
@@ -973,13 +1012,13 @@ export default function TrueManPowerPremium() {
 
               <Button
                 size="lg"
-                variant="outline"
-                className="group border-2 border-blue-600 bg-white/90 text-blue-600 hover:bg-blue-50 px-12 py-6 text-xl font-semibold shadow-2xl backdrop-blur-sm transition-all duration-300 transform hover:scale-105"
-                onClick={() => setShowLeadMagnet(true)}
+                className="group bg-green-500 hover:bg-green-600 text-white px-12 py-6 text-xl font-semibold shadow-2xl hover:shadow-3xl transition-all duration-300 transform hover:scale-105 flex items-center"
+                onClick={() => scrollToSection("contact")}
               >
-                <Download className="mr-3 h-6 w-6 group-hover:scale-110 transition-transform" />
-                {t.downloadGuide}
-                <ArrowRight className="ml-3 h-6 w-6 group-hover:translate-x-1 transition-transform" />
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-3 group-hover:scale-110 transition-transform" viewBox="0 0 20 20" fill="currentColor">
+                  <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                </svg>
+                {language === "RO" ? "Contactați-ne" : "Contact us"}
               </Button>
             </div>
 
@@ -1076,7 +1115,7 @@ export default function TrueManPowerPremium() {
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
             {pricingPlans.map((plan, index) => (
-              <PricingCard key={index} plan={plan} />
+              <PricingCard key={index} plan={plan} index={index} />
             ))}
           </div>
 
