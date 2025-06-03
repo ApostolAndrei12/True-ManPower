@@ -1,5 +1,6 @@
 "use client"
 
+import { sendContactForm, type ContactFormData } from "@/lib/email"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
