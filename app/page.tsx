@@ -494,32 +494,107 @@ export default function TrueManPowerPremium() {
     e.preventDefault()
     
     if (!formData.acceptTerms) {
-      alert("Vă rugăm să acceptați termenii și condițiile pentru a continua.")
+      alert(language === "RO" ? "Vă rugăm să acceptați termenii și condițiile pentru a continua." : "Please accept the terms and conditions to continue.")
       return
     }
 
-    // Here you would typically send the form data to your backend
-    console.log("Form submitted:", formData)
+    setIsSubmitting(true)
+
+    try {
+      const contactData: ContactFormData = {
+        companyName: formData.companyName,
+        contactName: formData.contactName,
+        industry: formData.industry,
+        workersNeeded: formData.workersNeeded,
+        phone: formData.phone,
+        email: formData.email,
+        message: formData.message,
+        preferredContact: formData.preferredContact,
+        urgency: formData.urgency,
+        formType: 'contact'
+      }
+
+      const result = await sendContactForm(contactData)
+      
+      if (result.success) {
+        setShowSuccessMessage(true)
+        setTimeout(() => setShowSuccessMessage(false), 5000)
+        
+        // Reset form
+        setFormData({
+          companyName: "",
+          contactName: "",
+          industry: "",
+          workersNeeded: "",
+          phone: "",
+          email: "",
+          message: "",
+          preferredContact: "email",
+          urgency: "normal",
+          acceptTerms: false
+        })
+        
+        setShowLeadForm(false)
+      } else {
+        alert(language === "RO" ? "Eroare la trimiterea formularului. Vă rugăm să încercați din nou." : "Error sending form. Please try again.")
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert(language === "RO" ? "Eroare la trimiterea formularului. Vă rugăm să ne contactați direct." : "Form submission error. Please contact us directly.")
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleQuickFormSubmit = async (e: FormEvent) => {
+    e.preventDefault()
     
-    // Show success message
-    setShowSuccessMessage(true)
-    setTimeout(() => setShowSuccessMessage(false), 5000)
-    
-    // Reset form
-    setFormData({
-      companyName: "",
-      contactName: "",
-      industry: "",
-      workersNeeded: "",
-      phone: "",
-      email: "",
-      message: "",
-      preferredContact: "email",
-      urgency: "normal",
-      acceptTerms: false
-    })
-    
-    setShowLeadForm(false)
+    if (!formData.companyName || !formData.workersNeeded || !formData.phone) {
+      alert(language === "RO" ? "Vă rugăm să completați toate câmpurile obligatorii." : "Please fill in all required fields.")
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const contactData: ContactFormData = {
+        companyName: formData.companyName,
+        industry: formData.industry,
+        workersNeeded: formData.workersNeeded,
+        phone: formData.phone,
+        email: formData.email || 'noemail@provided.com',
+        message: `Cerere rapidă pentru ${formData.workersNeeded} muncitori în domeniul ${formData.industry || 'general'}.`,
+        formType: 'quick-quote'
+      }
+
+      const result = await sendContactForm(contactData)
+      
+      if (result.success) {
+        setShowSuccessMessage(true)
+        setTimeout(() => setShowSuccessMessage(false), 5000)
+        
+        // Reset form
+        setFormData({
+          companyName: "",
+          contactName: "",
+          industry: "",
+          workersNeeded: "",
+          phone: "",
+          email: "",
+          message: "",
+          preferredContact: "email",
+          urgency: "normal",
+          acceptTerms: false
+        })
+      } else {
+        alert(language === "RO" ? "Eroare la trimiterea formularului. Vă rugăm să încercați din nou." : "Error sending form. Please try again.")
+      }
+    } catch (error) {
+      console.error('Quick form submission error:', error)
+      alert(language === "RO" ? "Eroare la trimiterea formularului. Vă rugăm să ne contactați direct." : "Form submission error. Please contact us directly.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleIndustryClick = (industry: string) => {
