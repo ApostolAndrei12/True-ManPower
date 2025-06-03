@@ -817,7 +817,7 @@ export default function TrueManPowerPremium() {
               <Image src="/logo.png" alt="True ManPower" width={60} height={60} className="rounded-lg shadow-md" />
               <div>
                 <h1 className="text-2xl font-bold text-gray-900">True ManPower® S.R.L.</h1>
-                <p className="text-sm text-blue-600 font-semibold tracking-wide">
+                <p className="text-sm text-blue-600 font-semibold tracking-wide mt-1">
                   {language === "RO" ? "RECRUTARE INTERNAȚIONALĂ" : "INTERNATIONAL RECRUITMENT"}
                 </p>
               </div>
