@@ -59,6 +59,12 @@ export default function FindingJobsPage() {
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedIndustry, setSelectedIndustry] = useState("all")
   const [selectedLocation, setSelectedLocation] = useState("all")
+  const [selectedJobType, setSelectedJobType] = useState("all")
+  const [selectedUrgency, setSelectedUrgency] = useState("all")
+  const [jobResults, setJobResults] = useState<JobListing[]>([])
+  const [isSearching, setIsSearching] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -69,6 +75,33 @@ export default function FindingJobsPage() {
     availability: "",
     message: ""
   })
+
+  // Perform search on component mount and when filters change
+  useEffect(() => {
+    performSearch()
+  }, [searchTerm, selectedIndustry, selectedLocation, selectedJobType, selectedUrgency])
+
+  const performSearch = async () => {
+    setIsSearching(true)
+    
+    const filters: SearchFilters = {
+      query: searchTerm,
+      industry: selectedIndustry,
+      location: selectedLocation,
+      salaryRange: "all",
+      jobType: selectedJobType,
+      urgency: selectedUrgency
+    }
+
+    try {
+      const results = searchJobs(filters)
+      setJobResults(results)
+    } catch (error) {
+      console.error('Search error:', error)
+    } finally {
+      setIsSearching(false)
+    }
+  }
 
   const jobOpportunities: JobOpportunity[] = [
     {
