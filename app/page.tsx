@@ -838,6 +838,20 @@ export default function TrueManPowerPremium() {
 
   return (
     <div className="min-h-screen bg-white text-gray-900 overflow-x-hidden">
+      {/* Success Message */}
+      {showSuccessMessage && (
+        <div className="fixed top-4 right-4 z-50 bg-green-100 border border-green-400 text-green-700 px-6 py-4 rounded-lg shadow-lg animate-in slide-in-from-right duration-300">
+          <div className="flex items-center space-x-2">
+            <CheckCircle className="h-5 w-5" />
+            <p className="font-medium">
+              {language === "RO" 
+                ? "Mesajul a fost trimis cu succes! Vă vom contacta în curând."
+                : "Message sent successfully! We will contact you soon."}
+            </p>
+          </div>
+        </div>
+      )}
+
       {/* Header */}
       <header
         className={`fixed top-0 w-full z-50 transition-all duration-500 ${
