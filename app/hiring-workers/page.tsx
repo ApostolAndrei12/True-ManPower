@@ -48,6 +48,9 @@ interface IndustryDemand {
 export default function HiringWorkersPage() {
   const [language, setLanguage] = useState<"RO" | "EN">("RO")
   const [selectedIndustry, setSelectedIndustry] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
+  const [showLeadForm, setShowLeadForm] = useState(false)
   const [formData, setFormData] = useState({
     companyName: "",
     industry: "",
