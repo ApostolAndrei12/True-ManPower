@@ -1,5 +1,7 @@
 "use client"
 
+import { sendJobApplication, type JobApplicationData } from "@/lib/email"
+import { searchJobs, getAvailableIndustries, getAvailableLocations, type SearchFilters, type JobListing } from "@/lib/search"
 import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
