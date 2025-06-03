@@ -1189,7 +1189,7 @@ export default function TrueManPowerPremium() {
                     : "Find the right workers"}
                 </h3>
 
-                <form onSubmit={handleFormSubmit} className="space-y-6">
+                <form onSubmit={handleQuickFormSubmit} className="space-y-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">
                       {t.formLabels.companyName}
@@ -1201,6 +1201,7 @@ export default function TrueManPowerPremium() {
                       onChange={(e) => setFormData(prev => ({ ...prev, companyName: e.target.value }))}
                       required
                       className="h-12"
+                      disabled={isSubmitting}
                     />
                   </div>
 
@@ -1209,7 +1210,11 @@ export default function TrueManPowerPremium() {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         {t.formLabels.industry}
                       </label>
-                      <Select value={formData.industry} onValueChange={(value) => setFormData(prev => ({ ...prev, industry: value }))}>
+                      <Select 
+                        value={formData.industry} 
+                        onValueChange={(value) => setFormData(prev => ({ ...prev, industry: value }))}
+                        disabled={isSubmitting}
+                      >
                         <SelectTrigger className="h-12">
                           <SelectValue placeholder={t.formLabels.industry} />
                         </SelectTrigger>
@@ -1236,6 +1241,7 @@ export default function TrueManPowerPremium() {
                         onChange={(e) => setFormData(prev => ({ ...prev, workersNeeded: e.target.value }))}
                         required
                         className="h-12"
+                        disabled={isSubmitting}
                       />
                     </div>
                   </div>
@@ -1251,15 +1257,26 @@ export default function TrueManPowerPremium() {
                       onChange={(e) => setFormData(prev => ({ ...prev, phone: e.target.value }))}
                       required
                       className="h-12"
+                      disabled={isSubmitting}
                     />
                   </div>
 
                   <Button 
                     type="submit"
-                    className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
+                    disabled={isSubmitting}
+                    className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                   >
-                    {t.cta.requestQuote}
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    {isSubmitting ? (
+                      <div className="flex items-center space-x-2">
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span>{language === "RO" ? "Se trimite..." : "Sending..."}</span>
+                      </div>
+                    ) : (
+                      <>
+                        {t.cta.requestQuote}
+                        <ArrowRight className="ml-2 h-5 w-5" />
+                      </>
+                    )}
                   </Button>
 
                   <p className="text-xs text-gray-500 text-center">
