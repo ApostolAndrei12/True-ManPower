@@ -214,7 +214,7 @@ export default function HiringWorkersPage() {
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 mb-12">
-              <Button size="lg" className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4">
+              <Button size="lg" onClick={() => setShowLeadForm(true)} className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-4">
                 <Calculator className="h-5 w-5 mr-2" />
                 {language === "RO" ? "Calculează Costurile" : "Calculate Costs"}
                 <ArrowRight className="h-5 w-5 ml-2" />
