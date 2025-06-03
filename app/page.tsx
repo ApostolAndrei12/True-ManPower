@@ -99,6 +99,8 @@ export default function TrueManPowerPremium() {
   const [currentHeroImage, setCurrentHeroImage] = useState(0)
   const [showLeadForm, setShowLeadForm] = useState(false)
   const [selectedIndustry, setSelectedIndustry] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
   const [formData, setFormData] = useState<FormData>({
     companyName: "",
     contactName: "",
@@ -111,12 +113,12 @@ export default function TrueManPowerPremium() {
     urgency: "normal",
     acceptTerms: false
   })
-  const [showSuccessMessage, setShowSuccessMessage] = useState(false)
 
   const heroImages = [
-    "https://images.unsplash.com/photo-1504917595217-d4dc5ebe6122?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-    "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
-    "https://images.unsplash.com/photo-1577415124269-fc1140a69e91?ixlib=rb-4.0.3&auto=format&fit=crop&w=2070&q=80",
+    "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg",
+    "https://images.pexels.com/photos/33266/work-chinese-industrial-professional.jpg",
+    "https://images.unsplash.com/photo-1556484687-30636164638b",
+    "https://images.pexels.com/photos/5686109/pexels-photo-5686109.jpeg",
   ]
 
   const industries = [
