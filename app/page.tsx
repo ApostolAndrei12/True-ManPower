@@ -966,20 +966,29 @@ export default function TrueManPowerPremium() {
 
           {/* Mobile Menu */}
           {mobileMenuOpen && (
-            <div className="lg:hidden fixed inset-0 z-50 bg-gray-900/95 backdrop-blur-sm">
-              <div className="container mx-auto px-6 py-8">
-                <div className="flex justify-end mb-8">
+            <div className="lg:hidden fixed inset-0 z-50 bg-gray-900/95 backdrop-blur-lg">
+              <div className="container mx-auto px-6 py-8 h-full overflow-y-auto">
+                <div className="flex justify-between items-center mb-8">
+                  <div className="flex items-center space-x-3">
+                    <Image src="/logo.png" alt="True ManPower" width={40} height={40} className="rounded-lg" />
+                    <div>
+                      <h3 className="text-lg font-bold text-white">True ManPower®</h3>
+                      <p className="text-blue-400 text-sm">
+                        {language === "RO" ? "Recrutare Internațională" : "International Recruitment"}
+                      </p>
+                    </div>
+                  </div>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="text-white hover:bg-white/10"
+                    className="text-white hover:bg-white/10 p-2"
                   >
                     <X className="h-6 w-6" />
                   </Button>
                 </div>
                 
-                <nav className="flex flex-col space-y-6">
+                <nav className="flex flex-col space-y-6 mb-8">
                   {[
                     { key: "home", label: language === "RO" ? "Acasă" : "Home" },
                     { key: "about", label: language === "RO" ? "Despre Noi" : "About" },
@@ -994,48 +1003,86 @@ export default function TrueManPowerPremium() {
                         scrollToSection(item.key);
                         setMobileMenuOpen(false);
                       }}
-                      className="text-white text-2xl font-medium hover:text-blue-400 transition-colors"
+                      className="text-white text-xl font-medium hover:text-blue-400 transition-colors text-left py-2 border-b border-gray-700/50"
                     >
                       {item.label}
                     </button>
                   ))}
                 </nav>
 
-                <div className="mt-8 pt-8 border-t border-white/20">
+                <div className="space-y-4 mb-8">
                   <Button
-                    className="w-full mt-4 bg-blue-600 hover:bg-blue-700 text-white mb-4"
-                    size="lg"
+                    asChild
+                    className="w-full bg-blue-600 hover:bg-blue-700 text-white py-4 text-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Link href="/hiring-workers">
+                      <Users className="mr-2 h-5 w-5" />
+                      {language === "RO" ? "Pentru Angajatori" : "For Employers"}
+                    </Link>
+                  </Button>
+                  
+                  <Button
+                    asChild
+                    variant="outline"
+                    className="w-full border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white py-4 text-lg"
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
+                    <Link href="/finding-jobs">
+                      <Briefcase className="mr-2 h-5 w-5" />
+                      {language === "RO" ? "Pentru Candidați" : "For Candidates"}
+                    </Link>
+                  </Button>
+
+                  <Button
+                    className="w-full bg-green-500 hover:bg-green-600 text-white py-4 text-lg"
                     onClick={() => {
                       setShowLeadForm(true);
                       setMobileMenuOpen(false);
                     }}
                   >
-                    {language === "RO" ? "Începe Acum" : "Get Started"}
-                    <ArrowRight className="ml-2 h-5 w-5" />
+                    <Phone className="mr-2 h-5 w-5" />
+                    {language === "RO" ? "Contactați-ne" : "Contact Us"}
                   </Button>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="outline" size="lg" className="w-full text-white border-white/20">
-                        <Languages className="h-5 w-5 mr-2" />
-                        {languages.find((lang) => lang.code === language)?.flag} {language}
-                        <ChevronDown className="h-5 w-5 ml-2" />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-full">
+                </div>
+
+                <div className="border-t border-gray-700/50 pt-6">
+                  <div className="mb-4">
+                    <p className="text-gray-400 text-sm mb-2">
+                      {language === "RO" ? "Schimbă limba:" : "Change language:"}
+                    </p>
+                    <div className="grid grid-cols-2 gap-2">
                       {languages.map((lang) => (
-                        <DropdownMenuItem
+                        <Button
                           key={lang.code}
+                          variant={language === lang.code ? "default" : "outline"}
+                          size="sm"
                           onClick={() => {
                             setLanguage(lang.code as "RO" | "EN");
-                            setMobileMenuOpen(false);
                           }}
+                          className={`flex items-center justify-center space-x-2 py-3 ${
+                            language === lang.code 
+                              ? "bg-blue-600 text-white" 
+                              : "border-gray-600 text-gray-300 hover:bg-gray-700"
+                          }`}
                         >
-                          <span className="mr-2">{lang.flag}</span>
-                          {lang.name}
-                        </DropdownMenuItem>
+                          <span className="text-lg">{lang.flag}</span>
+                          <span>{lang.name}</span>
+                        </Button>
                       ))}
-                    </DropdownMenuContent>
-                  </DropdownMenu>
+                    </div>
+                  </div>
+                  
+                  <div className="text-center space-y-2 text-gray-400 text-sm">
+                    <div className="flex items-center justify-center space-x-2">
+                      <Phone className="h-4 w-4" />
+                      <span>+40 799 870 326</span>
+                    </div>
+                    <div className="flex items-center justify-center space-x-2">
+                      <Mail className="h-4 w-4" />
+                      <span>office@truemanpower.ro</span>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
