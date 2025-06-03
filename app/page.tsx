@@ -868,7 +868,7 @@ export default function TrueManPowerPremium() {
                 </DropdownMenuContent>
               </DropdownMenu>
               <Button
-                className="bg-blue-600 hover:bg-blue-700 text-white"
+                className="bg-blue-600 hover:bg-blue-700 text-white mt-2"
                 onClick={() => setShowLeadForm(true)}
               >
                 {language === "RO" ? "Începe Acum" : "Get Started"}
