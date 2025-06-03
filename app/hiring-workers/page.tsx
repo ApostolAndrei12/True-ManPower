@@ -156,10 +156,57 @@ export default function HiringWorkersPage() {
     }
   ]
 
-  const handleFormSubmit = (e: React.FormEvent) => {
+  const handleFormSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    // Handle form submission
+    
+    if (!formData.companyName || !formData.phone || !formData.email) {
+      alert(language === "RO" ? "Vă rugăm să completați toate câmpurile obligatorii." : "Please fill in all required fields.")
+      return
+    }
+
+    setIsSubmitting(true)
+
+    try {
+      const contactData: ContactFormData = {
+        companyName: formData.companyName,
+        contactName: formData.contactName,
+        industry: formData.industry,
+        workersNeeded: formData.workersNeeded,
+        phone: formData.phone,
+        email: formData.email,
+        message: formData.message,
+        urgency: formData.urgency,
+        formType: 'hiring'
+      }
+
+      const result = await sendContactForm(contactData)
+      
+      if (result.success) {
+        setShowSuccessMessage(true)
+        setTimeout(() => setShowSuccessMessage(false), 5000)
+        
+        // Reset form
+        setFormData({
+          companyName: "",
+          industry: "",
+          workersNeeded: "",
+          urgency: "normal",
+          contactName: "",
+          phone: "",
+          email: "",
+          message: ""
+        })
+        
+        setShowLeadForm(false)
+      } else {
+        alert(language === "RO" ? "Eroare la trimiterea formularului. Vă rugăm să încercați din nou." : "Error sending form. Please try again.")
+      }
+    } catch (error) {
+      console.error('Form submission error:', error)
+      alert(language === "RO" ? "Eroare la trimiterea formularului. Vă rugăm să ne contactați direct." : "Form submission error. Please contact us directly.")
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
